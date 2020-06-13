@@ -1,2 +1,0 @@
-(this.webpackJsonpmovi=this.webpackJsonpmovi||[]).push([[6],{155:function(n,t,e){"use strict";e.r(t),e.d(t,"default",(function(){return o}));var i=e(0),u=e.n(i);function o(){return u.a.createElement("h1",null,"Movi")}}}]);
-//# sourceMappingURL=6.457aa939.chunk.js.map

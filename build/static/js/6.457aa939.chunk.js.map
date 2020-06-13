@@ -1,1 +1,0 @@
-{"version":3,"sources":["components/HomePage.js"],"names":["HomePage"],"mappings":"8FAAA,mEAEe,SAASA,IACtB,OACE","file":"static/js/6.457aa939.chunk.js","sourcesContent":["import React from 'react';\n\nexport default function HomePage() {\n  return (\n    <h1>Movi</h1>\n  );\n}"],"sourceRoot":""}
