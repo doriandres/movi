@@ -8,9 +8,11 @@ export default {
         return { ...state, [key]: session };
       }
       case SIGN_OUT: {
-        const { key } = action.payload;
+        const { keys } = action;
         const copy = { ...state };
-        delete copy[key];
+        keys.forEach(key => {
+          delete copy[key];
+        });
         return copy;
       }
       default: {
