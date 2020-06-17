@@ -59,7 +59,7 @@ export default function AdminSignInPage() {
           <Grid item xs={12} md={4}>
             <Paper className={classes.padding}>
               <Typography className={classes.noMarginTop} variant="h5">
-                Adminstración | Iniciar Sesión
+                Admin | Iniciar Sesión
               </Typography>
               <form
                 className={classes.marginTop}
