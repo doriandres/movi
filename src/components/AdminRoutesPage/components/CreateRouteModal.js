@@ -9,13 +9,21 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import { useForm, Controller } from 'react-hook-form';
 import { post } from "axios";
 import { useMediaQuery, useTheme, FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@material-ui/core';
-
+import SaveIcon from "@material-ui/icons/Save";
 import useStyles from "./../../shared/styles/forms";
 import { API_URL } from '../../../settings';
 
 export default function CreateRouteModal({ open, onClose = () => { }, onCreated = () => { } }) {
   const classes = useStyles();
-  const form = useForm();
+  const form = useForm({
+    defaultValues: {
+      name: "",
+      code: "",
+      cost: "",
+      province: "",
+      canton: ""
+    }
+  });
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
 
@@ -29,6 +37,8 @@ export default function CreateRouteModal({ open, onClose = () => { }, onCreated 
   const onSuccess = () => {
     onCreated();
     onClose();
+    form.reset();
+    setLoading(false);
   };
 
   const onFail = (error) => {
@@ -45,7 +55,7 @@ export default function CreateRouteModal({ open, onClose = () => { }, onCreated 
 
   return (
     <>
-      <Dialog open={!!open} maxWidth="md" fullWidth scroll="paper" fullScreen={fullScreen}>
+      <Dialog open={!!open} maxWidth="sm" fullWidth scroll="paper" fullScreen={fullScreen}>
         <DialogTitle>Agregar Ruta</DialogTitle>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -83,6 +93,9 @@ export default function CreateRouteModal({ open, onClose = () => { }, onCreated 
                     const number = parseFloat(val);
                     if (Number.isNaN(number)) {
                       return "Debe insertar un costo válido";
+                    }
+                    if (number < 0) {
+                      return "Debe insertar un costo no negativo";
                     }
                   }
                 })}
@@ -129,7 +142,7 @@ export default function CreateRouteModal({ open, onClose = () => { }, onCreated 
             </div>
           </DialogContent>
           <DialogActions className={classes.marginTop}>
-            <Button disabled={loading} type="submit" variant="contained" color="primary">
+            <Button startIcon={<SaveIcon />} disabled={loading} type="submit" variant="contained" color="primary">
               {loading ? 'Guardando' : 'Guardar'}
             </Button>
             <Button disabled={loading} onClick={onClose} variant="outlined">
