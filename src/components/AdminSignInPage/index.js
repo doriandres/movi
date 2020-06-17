@@ -69,7 +69,7 @@ export default function AdminSignInPage() {
                   <TextField
                     label="Nombre de usuario"
                     name="username"
-                    inputRef={form.register({ required: "Debe insertar un correo electrónico" })}
+                    inputRef={form.register({ required: "Debe insertar un nombre de usuario" })}
                     variant="outlined"
                     error={!!form.errors.username}
                     helperText={form.errors.username?.message}
