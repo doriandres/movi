@@ -18,7 +18,8 @@ function authenticate(res, key, data) {
  * @param {String} key cookie key for the token
  */
 function deauthenticate(res, key) {
-  res.cookie(key, '', { expires: new Date(Date.now()), secure: false, httpOnly: true });
+  res.clearCookie(key);
+  // res.cookie(key, 'signed out', { expires: new Date(Date.now() + EXPIRATION_TIME), secure: false, httpOnly: true, sameSite: 'None' });
 }
 
 /**

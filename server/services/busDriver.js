@@ -21,6 +21,21 @@ function validateBusDriverCredentials(data, callback) {
   });
 }
 
+function insertBusDriver(data, callback) {
+  const busDriver = new BusDriver(data);
+  busDriver.save()
+    .then(result => callback(null, result))
+    .catch(error => {
+      if (error.name === 'MongoError' && error.code === 11000) {
+        callback(exception("Ya existe un conductor registrado con esa cédula", 422));
+      } else {
+        callback(exception(error));
+      }
+    });
+}
+
+
 module.exports = {
   validateBusDriverCredentials,
+  insertBusDriver
 };
