@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { Button, Paper, Grid, Typography } from '@material-ui/core';
 import useStyles from "../shared/styles/forms";
-import { API_URL } from '../../settings';
 import { Redirect } from 'react-router-dom';
 import {MDCRipple} from '@material/ripple';
+import { selectAuth } from '../../redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { NOT_FOUND, ADMIN_ROUTES, ADMIN_DRIVERS } from '../../locations';
+import { ADMIN } from '../../constants/roles';
 
 export default function AdminLandingPage() {
 
   const classes = useStyles();
-  const form = useForm();
+  const auth = useSelector(selectAuth(ADMIN));
+
+  const onSubmit = () => {
+        return  <Redirect to={ADMIN_ROUTES()} />
+ }
 
   return (
   <>
@@ -25,7 +31,7 @@ export default function AdminLandingPage() {
               Bienvenido a la página administrativa de Movi
               </Typography>
               <Grid container>
-              <Grid item md={12} md={8} className={classes.marginTop}>
+              <Grid item lg={12} md={8} className={classes.marginTop}>
             <Paper className={classes.padding}>
               <Typography className={classes.marginTop} variant="h5">
               Opciones
@@ -49,8 +55,8 @@ export default function AdminLandingPage() {
                     variant="contained"
                     color="primary"
                     size="large"
-                    fullWidth>
-                    <span>Rutas</span>
+                    fullWidth
+                    onClick={onSubmit}>Rutas
                   </Button>
                 </div>
                 <div className={classes.marginTop}>
