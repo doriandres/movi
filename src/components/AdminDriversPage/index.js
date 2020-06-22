@@ -23,8 +23,9 @@ export default function AdminDriversPage() {
         <Button startIcon={<AddIcon />} variant="contained" onClick={() => setShowCreate(true)} color="primary">Registrar Conductor</Button>
       </Container>
       <RegisterDriverModal open={showCreate} onClose={hideCreate} onCreated={onCreated} />
+
       <div className={classes.padding}>
-      <Paper className={classes.padding}>
+      <Container>
       <div className={classes.root}>
         <Grid container>
           <Grid item lg={12} md={8} />
@@ -33,15 +34,15 @@ export default function AdminDriversPage() {
               <Typography className={classes.marginTop} variant="h5">
               Lista de Conductores
               </Typography>
-              <form
-                className={classes.marginTop}
-                autoComplete="off">               
-              </form>
+              <div className={classes.padding}>
+
+
+              </div>
               </Paper>
               </Grid>
         </Grid>
       </div>
-      </Paper>
+      </Container>
       </div>
     </>
   );
