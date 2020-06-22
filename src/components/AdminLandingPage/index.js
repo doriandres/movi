@@ -21,6 +21,7 @@ export default function AdminLandingPage() {
               <Typography className={classes.marginTop} variant="subtitle1">
               Bienvenido a la página administrativa de Movi
               </Typography>
+              </Paper>
               <Grid container>
               <Grid item lg={12} md={8} className={classes.marginTop}>
             <Paper className={classes.padding}>
@@ -64,7 +65,7 @@ export default function AdminLandingPage() {
               </Paper>
               </Grid>
               </Grid>
-            </Paper>
+            
           </Grid>
         </Grid>
       </div>
