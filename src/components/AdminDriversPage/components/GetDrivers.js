@@ -1,14 +1,39 @@
 import { MDCDataTable } from '@material/data-table';
 import { useForm, Controller } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useState } from 'react';
 import useStyles from "./../../shared/styles/forms";
 import { get } from "axios";
 import { Container } from '@material-ui/core';
-
+import { API_URL } from '../../../settings';
 export default function GetDrivers() {
 
-
+  const dispatch = useDispatch();
   const classes = useStyles();
+  const form = useForm();
+
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const cleanError = () => {
+    setError(null);
+  };
+
+  const onSuccess = () => {
+    dispatch();
+  };
+
+  const onFail = (error) => {
+    setError(error);
+    setLoading(false);
+  };
+
+  const onSubmit = () => {
+    setLoading(true);
+    get(`${API_URL}api/v1/bus-drivers/all`)
+      .then((response) => onSuccess(response.data.result))
+      .catch(error => onFail(error.response?.data?.error || 'Hubo un error de conexión'));
+  };
 
   return (
     <>
