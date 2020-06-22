@@ -3,6 +3,7 @@ import { Container, Button, Paper, Grid, Typography } from '@material-ui/core';
 import AddIcon from "@material-ui/icons/Add";
 import useStyles from "../shared/styles/forms";
 import RegisterDriverModal from './components/RegisterDriverModal';
+import GetDrivers from './components/GetDrivers';
 
 export default function AdminDriversPage() {
   const [showCreate, setShowCreate] = useState(false);
@@ -35,8 +36,7 @@ export default function AdminDriversPage() {
               Lista de Conductores
               </Typography>
               <div className={classes.padding}>
-
-
+              <GetDrivers></GetDrivers>
               </div>
               </Paper>
               </Grid>

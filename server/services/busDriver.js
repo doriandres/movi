@@ -34,8 +34,18 @@ function insertBusDriver(data, callback) {
     });
 }
 
+function selectAllBusDriver(callback) {
+  BusDriver.find({}, (error, results) => {
+    if (error) {
+      return callback(exception(error));
+    }
+    return callback(null, results);
+  });
+}
+
 
 module.exports = {
   validateBusDriverCredentials,
-  insertBusDriver
+  insertBusDriver,
+  selectAllBusDriver
 };

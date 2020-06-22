@@ -2,7 +2,7 @@ const { Router } = require('express');
 const resolve = require("../api/resolve");
 const ROLES = require("../constants/roles");
 const { authenticate, deauthenticate, authorize } = require("../security/auth");
-const { validateBusDriverCredentials, insertBusDriver } = require("../services/busDriver");
+const { validateBusDriverCredentials, insertBusDriver, selectAllBusDriver } = require("../services/busDriver");
 
 const router = Router();
 
@@ -36,6 +36,14 @@ router.post("/sign-out", (req, res) => {
 router.post("/insert", authorize(ROLES.ADMIN), (req, res) => {
   const data = req.body;
   insertBusDriver(data, resolve(req, res));
+});
+
+/**
+ * GET
+ * /api/v1/bus-drivers/all
+ */
+router.get("/all", authorize(ROLES.ADMIN), (req, res) => {
+  selectAllBusDriver(resolve(req, res));
 });
 
 module.exports = router;
