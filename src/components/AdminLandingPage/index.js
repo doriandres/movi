@@ -1,21 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Paper, Grid, Typography } from '@material-ui/core';
 import useStyles from "../shared/styles/forms";
-import { Redirect } from 'react-router-dom';
-import {MDCRipple} from '@material/ripple';
-import { selectAuth } from '../../redux/selectors';
-import { useDispatch, useSelector } from 'react-redux';
-import { NOT_FOUND, ADMIN_ROUTES, ADMIN_DRIVERS } from '../../locations';
-import { ADMIN } from '../../constants/roles';
+import { ADMIN_ROUTES, ADMIN_DRIVERS } from '../../locations';
+import { Link } from 'react-router-dom';
 
 export default function AdminLandingPage() {
 
   const classes = useStyles();
-  const auth = useSelector(selectAuth(ADMIN));
-
-  const onSubmit = () => {
-        return  <Redirect to={ADMIN_ROUTES()} />
- }
 
   return (
   <>
@@ -45,8 +36,8 @@ export default function AdminLandingPage() {
                     variant="contained"
                     color="primary"
                     size="large"
-                    fullWidth>
-                    <span>Conductores</span>
+                    fullWidth
+                    component={Link} to={ADMIN_DRIVERS()}>Conductores
                   </Button>
                 </div>
                 <div className={classes.marginTop}>
@@ -56,7 +47,7 @@ export default function AdminLandingPage() {
                     color="primary"
                     size="large"
                     fullWidth
-                    onClick={onSubmit}>Rutas
+                    component={Link} to={ADMIN_ROUTES()}>Rutas
                   </Button>
                 </div>
                 <div className={classes.marginTop}>
@@ -65,8 +56,8 @@ export default function AdminLandingPage() {
                     variant="contained"
                     color="primary"
                     size="large"
-                    fullWidth>
-                    <span>Usuarios</span>
+                    fullWidth
+                    component={Link} to={ADMIN_ROUTES()}>Usuarios
                   </Button>
                 </div>
               </form>

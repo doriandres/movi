@@ -7,7 +7,7 @@ import { List, ListItem, IconButton, Container, Button } from '@material-ui/core
 import Drawer from '@material-ui/core/Drawer';
 import MoviIcon from "@material-ui/icons/DirectionsBusOutlined";
 import { Link } from 'react-router-dom';
-import { ADMIN_SIGN_IN } from '../../locations';
+import { ADMIN_SIGN_IN, ADMIN_DRIVERS, ADMIN_LANDING, ADMIN_ROUTES } from '../../locations';
 import clsx from 'clsx';
 import MenuIcon from '@material-ui/icons/Menu';
 import Dialog from '@material-ui/core/Dialog';
@@ -73,7 +73,11 @@ export default function NavigationBar() {
                 <ListItem button onClick={onSignOutClick} disabled={isAdminSigningOut} color="inherit">Admin - Cerrar Sesión</ListItem>
                 :
                 <ListItem button component={Link} to={ADMIN_SIGN_IN()} color="inherit">Admin - Iniciar Sesión</ListItem>
-            }
+              }
+                <ListItem button component={Link} to={ADMIN_LANDING()} color="inherit">Página Principal</ListItem>
+                <ListItem button component={Link} to={ADMIN_DRIVERS()} color="inherit">Conductores</ListItem>
+                <ListItem button component={Link} to={ADMIN_ROUTES()} color="inherit">Rutas</ListItem>
+                <ListItem button component={Link} to={ADMIN_SIGN_IN()} color="inherit">Usuarios</ListItem>
           </List>
         </div>
       </Drawer>
