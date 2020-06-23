@@ -10,6 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Alert } from '@material-ui/lab';
 import useStyles from "../../shared/styles/forms";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default function GetDrivers() {
 
@@ -49,13 +50,13 @@ export default function GetDrivers() {
             </TableHead>
             <TableBody>
               {busDrivers.length ?
-
                 busDrivers.map((busDriver) => (<><TableCell align="right">{busDriver.citizenId}</TableCell>
                   <TableCell align="right">{busDriver.name}</TableCell>
                   <TableCell align="right">{busDriver.lastName}</TableCell>
                   <TableCell align="right">{busDriver.route}</TableCell></>))
                 :
-                <Alert className={classes.alerts} severity="error">Error: {loadError}</Alert>
+                <><CircularProgress color="primary">{loading}</CircularProgress>
+                <Alert className={classes.alerts} severity="error">Error: {loadError}</Alert></>
               }
             </TableBody>
           </Table>
