@@ -13,4 +13,20 @@ export default makeStyles((theme) => ({
   noMarginTop: {
     marginTop: 0,
   },
+
+  alerts: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
+  spinner: {
+    display: 'flex',
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
+    },
+  }
+
+
+
 }));
