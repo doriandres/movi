@@ -43,20 +43,20 @@ export default function GetDrivers() {
             <TableHead>
               <TableRow>
                 <TableCell>Identificación</TableCell>
-                <TableCell align="right">Nombre</TableCell>
-                <TableCell align="right">Apellido</TableCell>
-                <TableCell align="right">Ruta Asignada</TableCell>
+                <TableCell >Nombre</TableCell>
+                <TableCell >Apellido</TableCell>
+                <TableCell >Ruta Asignada</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {busDrivers.length ?
-                busDrivers.map((busDriver) => (<><TableCell align="right">{busDriver.citizenId}</TableCell>
-                  <TableCell align="right">{busDriver.name}</TableCell>
-                  <TableCell align="right">{busDriver.lastName}</TableCell>
-                  <TableCell align="right">{busDriver.route}</TableCell></>))
+                busDrivers.map((busDriver) => (<TableRow><TableCell align="right">{busDriver.citizenId}</TableCell>
+                  <TableCell >{busDriver.name}</TableCell>
+                  <TableCell >{busDriver.lastName}</TableCell>
+                  <TableCell >{busDriver.route.name}</TableCell></TableRow>))
                 :
                 <><CircularProgress color="primary">{loading}</CircularProgress>
-                <Alert className={classes.alerts} severity="error">Error: {loadError}</Alert></>
+                  <Alert className={classes.alerts} severity="error">Error: {loadError}</Alert></>
               }
             </TableBody>
           </Table>
