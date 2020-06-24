@@ -68,16 +68,12 @@ export default function NavigationBar() {
             </Typography>
           </Container>
           <List>
-            {
-              adminAuth ?
-                <ListItem button onClick={onSignOutClick} disabled={isAdminSigningOut} color="inherit">Admin - Cerrar Sesión</ListItem>
-                :
-                <ListItem button component={Link} to={ADMIN_SIGN_IN()} color="inherit">Admin - Iniciar Sesión</ListItem>
-            }
-            <ListItem button component={Link} to={ADMIN_LANDING()} color="inherit">Página Principal</ListItem>
+            {!adminAuth && <ListItem button component={Link} to={ADMIN_SIGN_IN()} color="inherit">Admin - Iniciar Sesión</ListItem>}
+            <ListItem button component={Link} to={ADMIN_LANDING()} color="inherit">Inicio</ListItem>
             <ListItem button component={Link} to={ADMIN_DRIVERS()} color="inherit">Conductores</ListItem>
             <ListItem button component={Link} to={ADMIN_ROUTES()} color="inherit">Rutas</ListItem>
             <ListItem button component={Link} to={ADMIN_USERS()} color="inherit">Usuarios</ListItem>
+            {adminAuth && <ListItem button onClick={onSignOutClick} disabled={isAdminSigningOut} color="inherit">Cerrar Sesión</ListItem>}
           </List>
         </div>
       </Drawer>

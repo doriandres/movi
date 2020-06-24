@@ -31,7 +31,7 @@ export default function AdminRoutesPage() {
         setBusRoutes(response.data.result);
       })
       .catch(err => {
-        setError(err.response?.data?.error || 'Hubo un error de conexión al cargar las opciones');
+        setError(err.response?.data?.error || 'Hubo un error de conexión al cargar las rutas');
       })
       .finally(() => setLoading(false))
   };

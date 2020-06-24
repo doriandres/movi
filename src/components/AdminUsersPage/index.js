@@ -23,14 +23,9 @@ export default function AdminUsersPage() {
         setCustomers(response.data.result);
       })
       .catch(err => {
-        setError(err.response?.data?.error || 'Hubo un error de conexión al cargar las opciones');
+        setError(err.response?.data?.error || 'Hubo un error de conexión al cargar los usuarios');
       })
       .finally(() => setLoading(false))
-  };
-
-
-  const onCreated = () => {
-    loadUsers();
   };
 
   useEffect(() => {

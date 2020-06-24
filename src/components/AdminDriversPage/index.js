@@ -32,7 +32,7 @@ export default function AdminDriversPage() {
         setBusDrivers(response.data.result);
       })
       .catch(err => {
-        setLoadError(err.response?.data?.error || 'Hubo un error de conexión al cargar las opciones');
+        setLoadError(err.response?.data?.error || 'Hubo un error de conexión al cargar los conductores');
       })
       .finally(() => setLoading(false))
   };
@@ -69,7 +69,7 @@ export default function AdminDriversPage() {
                     <TableRow key={busDrivers._id}>
                       <TableCell>{busDrivers.citizenId}</TableCell>
                       <TableCell>{busDrivers.name}</TableCell>
-                      <TableCell>₡ {busDrivers.lastName}</TableCell>
+                      <TableCell>{busDrivers.lastName}</TableCell>
                       <TableCell>{busDrivers.route.name}</TableCell>
                     </TableRow>
                   ))}

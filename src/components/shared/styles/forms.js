@@ -13,7 +13,10 @@ export default makeStyles((theme) => ({
   noMarginTop: {
     marginTop: 0,
   },
-
+  flex: {
+    display: "flex",
+    justifyContent: "space-around"
+  },
   alerts: {
     width: '100%',
     '& > * + *': {

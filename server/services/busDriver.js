@@ -35,12 +35,15 @@ function insertBusDriver(data, callback) {
 }
 
 function selectAllBusDriver(callback) {
-  BusDriver.find({}, (error, results) => {
-    if (error) {
-      return callback(exception(error));
-    }
-    return callback(null, results);
-  });
+  BusDriver
+    .find({})
+    .populate('route')
+    .exec((error, results) => {
+      if (error) {
+        return callback(exception(error));
+      }
+      return callback(null, results);
+    });
 }
 
 
