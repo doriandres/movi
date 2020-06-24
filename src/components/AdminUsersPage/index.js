@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 import { get } from 'axios';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,6 +9,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Alert from '@material-ui/lab/Alert';
 import { API_URL } from '../../settings';
 import Loading from '../Loading';
+import TableContainer from '@material-ui/core/TableContainer';
+import Paper from '@material-ui/core/Paper';
 
 function getAge(bornDate) {
   return Math.floor(new Date(Date.now() - new Date(bornDate).getTime()).getTime() / (1000 * 60 * 60 * 8760));
@@ -40,32 +42,39 @@ export default function AdminUsersPage() {
   return (
     <>
       <Container>
+        <Typography variant="h4">
+          Usuarios
+        </Typography>
+        <br />
         {loading && <Loading />}
         {error && <Alert severity="error">{error}</Alert>}
-        {!loading && !error && (customers.length ? (
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell>Correo</TableCell>
-                <TableCell>Nombre</TableCell>
-                <TableCell>Apellido</TableCell>
-                <TableCell>Edad</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {customers.map((user) => (
-                <TableRow key={user._id}>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.name}</TableCell>
-                  <TableCell>{user.lastName}</TableCell>
-                  <TableCell>{getAge(user.bornDate)}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        ) : <Alert severity="warning">No hay usuarios registradas</Alert>)}
-
-
+        {!loading && !error && (
+          customers.length ?
+            (<TableContainer component={Paper}>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Correo</TableCell>
+                    <TableCell>Nombre</TableCell>
+                    <TableCell>Apellido</TableCell>
+                    <TableCell>Edad</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {customers.map((customer) => (
+                    <TableRow key={customer._id}>
+                      <TableCell>{customer.email}</TableCell>
+                      <TableCell>{customer.name}</TableCell>
+                      <TableCell>{customer.lastName}</TableCell>
+                      <TableCell>{getAge(customer.bornDate)}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>)
+            :
+            <Alert severity="warning">No hay usuarios registradas</Alert>
+        )}
       </Container>
     </>
   );

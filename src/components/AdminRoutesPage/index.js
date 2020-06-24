@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CreateRouteModal from './components/CreateRouteModal';
-import { Container, Button } from '@material-ui/core';
+import { Container, Button, Typography } from '@material-ui/core';
 import { get } from 'axios';
 import AddIcon from "@material-ui/icons/Add";
 import Table from '@material-ui/core/Table';
@@ -49,6 +49,10 @@ export default function AdminRoutesPage() {
   return (
     <>
       <Container>
+        <Typography variant="h4">
+          Rutas
+        </Typography>
+        <br />
         <Button startIcon={<AddIcon />} variant="contained" onClick={() => setShowCreate(true)} color="primary">Crear Ruta</Button>
         <br /><br />
         {loading && <Loading />}

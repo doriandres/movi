@@ -6,7 +6,7 @@ import UserIcon from "@material-ui/icons/SupervisorAccount";
 import useStyles from "../shared/styles/forms";
 import { ADMIN_ROUTES, ADMIN_DRIVERS, ADMIN_USERS } from '../../locations';
 import { Link } from 'react-router-dom';
-import clsx from 'clsx';
+import MoviIcon from "@material-ui/icons/DirectionsBusOutlined";
 
 export default function AdminLandingPage() {
 
@@ -18,45 +18,55 @@ export default function AdminLandingPage() {
         <Container>
           <div className={classes.root}>
             <Grid container>
-              <Grid item lg={12} md={8} />
-              <Grid item lg={12} md={8}>
+              <Grid item sm={12} md={2} />
+              <Grid item sm={12} md={8}>
                 <Paper className={classes.padding}>
                   <Typography className={classes.noMarginTop} variant="h4">
-                    Movi - Monedero Digital
-                    </Typography>
+                    <MoviIcon />Movi - Monedero Digital
+                  </Typography>
                   <Typography className={classes.marginTop} variant="subtitle1">
                     Bienvenido a la página administrativa de Movi
                   </Typography>
-                  <div className={clsx(classes.padding, classes.flex)}>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      size="large"
-                      startIcon={<BusIcon />}
-                      component={Link}
-                      to={ADMIN_DRIVERS()}>
-                      Conductores
-                    </Button>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      size="large"
-                      startIcon={<RouteIcon />}
-                      component={Link} to={ADMIN_ROUTES()}>
-                      Rutas
-                    </Button>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      size="large"
-                      startIcon={<UserIcon />}
-                      component={Link} to={ADMIN_USERS()}>
-                      Usuarios
-                    </Button>
-                  </div>
+                  <br />
+                  <Grid container spacing={1}>
+                    <Grid item sm={12} md={4} >
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        startIcon={<BusIcon />}
+                        component={Link}
+                        to={ADMIN_DRIVERS()}
+                        fullWidth>
+                        Conductores
+                      </Button>
+                    </Grid>
+                    <Grid item sm={12} md={4} >
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        startIcon={<RouteIcon />}
+                        component={Link} to={ADMIN_ROUTES()}
+                        fullWidth>
+                        Rutas
+                      </Button>
+                    </Grid>
+                    <Grid item sm={12} md={4} >
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        startIcon={<UserIcon />}
+                        component={Link} to={ADMIN_USERS()}
+                        fullWidth>
+                        Usuarios
+                      </Button>
+                    </Grid>
+                  </Grid>
                 </Paper>
               </Grid>
             </Grid>

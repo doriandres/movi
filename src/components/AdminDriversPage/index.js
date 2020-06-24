@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button } from '@material-ui/core';
+import { Container, Button, Typography } from '@material-ui/core';
 import AddIcon from "@material-ui/icons/Add";
 import RegisterDriverModal from './components/RegisterDriverModal';
 import Table from '@material-ui/core/Table';
@@ -48,6 +48,10 @@ export default function AdminDriversPage() {
   return (
     <>
       <Container>
+        <Typography variant="h4">
+          Conductores
+        </Typography>
+        <br />
         <Button startIcon={<AddIcon />} variant="contained" onClick={() => setShowCreate(true)} color="primary">Registrar Conductor</Button>
         <br /><br />
         {loading && <Loading />}
