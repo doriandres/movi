@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import CreateRouteModal from './components/CreateRouteModal';
-import { Container, Button } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import { get } from 'axios';
-import AddIcon from "@material-ui/icons/Add";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -12,21 +10,17 @@ import Alert from '@material-ui/lab/Alert';
 import { API_URL } from '../../settings';
 import Loading from '../Loading';
 
-export default function AdminRoutesPage() {
-  const [showCreate, setShowCreate] = useState(false);
+export default function AdminUsersPage() {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const hideCreate = () => {
-    setShowCreate(false);
-  };
 
   const loadUsers = () => {
     setLoading(true);
     get(`${API_URL}api/v1/customers/all`, { withCredentials: true })
       .then((response) => {
-        setBusRoutes(response.data.result);
+        setCustomers(response.data.result);
       })
       .catch(err => {
         setError(err.response?.data?.error || 'Hubo un error de conexión al cargar las opciones');
@@ -75,7 +69,6 @@ export default function AdminRoutesPage() {
 
 
       </Container>
-      <CreateRouteModal open={showCreate} onClose={hideCreate} onCreated={onCreated} />
     </>
   );
 }

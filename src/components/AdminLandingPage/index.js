@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import useStyles from "../shared/styles/forms";
-import { ADMIN_ROUTES, ADMIN_DRIVERS } from '../../locations';
+import { ADMIN_ROUTES, ADMIN_DRIVERS, ADMIN_USERS } from '../../locations';
 import { Link } from 'react-router-dom';
 
 export default function AdminLandingPage() {
@@ -60,7 +60,7 @@ export default function AdminLandingPage() {
                             color="primary"
                             size="large"
                             fullWidth
-                            component={Link} to={ADMIN_ROUTES()}>Usuarios
+                            component={Link} to={ADMIN_USERS()}>Usuarios
                   </Button>
                         </div>
                       </form>
@@ -71,8 +71,8 @@ export default function AdminLandingPage() {
               </Grid>
             </Grid>
           </div>
-          </Container>
-    </div>
-</>
+        </Container>
+      </div>
+    </>
   );
 }
