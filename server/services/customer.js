@@ -25,6 +25,16 @@ function validateCustomerCredentials(data, callback) {
   });
 }
 
+function selectAllCustomers(callback) {
+  Customer.find({}, (error, results) => {
+    if (error) {
+      return callback(exception(error));
+    }
+    return callback(null, results);
+  });
+}
+
 module.exports = {
-  validateCustomerCredentials
+  validateCustomerCredentials,
+  selectAllCustomers
 };
