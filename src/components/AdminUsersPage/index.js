@@ -10,6 +10,10 @@ import Alert from '@material-ui/lab/Alert';
 import { API_URL } from '../../settings';
 import Loading from '../Loading';
 
+function getAge(bornDate) {
+  return Math.floor(new Date(Date.now() - new Date(bornDate).getTime()).getTime() / (1000 * 60 * 60 * 8760));
+}
+
 export default function AdminUsersPage() {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -42,7 +46,6 @@ export default function AdminUsersPage() {
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>Identificacion</TableCell>
                 <TableCell>Correo</TableCell>
                 <TableCell>Nombre</TableCell>
                 <TableCell>Apellido</TableCell>
@@ -52,10 +55,10 @@ export default function AdminUsersPage() {
             <TableBody>
               {customers.map((user) => (
                 <TableRow key={user._id}>
-                  <TableCell>{user.name}</TableCell>
                   <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.name}</TableCell>
                   <TableCell>{user.lastName}</TableCell>
-                  <TableCell>{new Date() - user.bornDate}</TableCell>
+                  <TableCell>{getAge(user.bornDate)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
