@@ -20,3 +20,29 @@
 | Issue | Status | Release Version
 | ----------| ------ | ------
 [Main URL](https://trello.com/c/2bwCGviW/26-main-url)| ![status](https://img.shields.io/static/v1?label=status&message=Done&color=green) |`v1.0.0`
+
+
+---
+
+
+## Installation
+Before running the project make sure you have installed all the dependencies.
+```bash
+npm install
+```
+
+## Running for development
+For running in development you can simply run the following command:
+```bash
+npm run api && npm run web
+```
+After this you can use the application using `localhost:3000`.
+>Note: You can run the api using Visual Studio Code Node JS debugger as well.
+
+
+## Running for production
+For running in a production like environment run this command:
+```bash
+npm run build && npm run api
+```
+After running this comand the application can be used at `localhost:8080`
