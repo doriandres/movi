@@ -16,6 +16,8 @@ import RoutesSelect from '../../shared/components/RoutesSelect';
 
 export default function RegisterDriverModal({ open, onClose = () => { }, onCreated = () => { } }) {
   const classes = useStyles();
+
+  // Form manager
   const form = useForm({
     defaultValues: {
       citizenId: "",
@@ -27,15 +29,19 @@ export default function RegisterDriverModal({ open, onClose = () => { }, onCreat
   });
 
   const theme = useTheme();
+
+  // If the theme detects we are in a mobile device fullscreen will be true
   const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // Cleans any errors
   const cleanError = () => {
     setError(null);
   };
 
+  // Form submission success handler
   const onSuccess = () => {
     onCreated();
     onClose();
@@ -43,11 +49,13 @@ export default function RegisterDriverModal({ open, onClose = () => { }, onCreat
     setLoading(false);
   };
 
+  // Form submission fail handler
   const onFail = (error) => {
     setError(error);
     setLoading(false);
   };
 
+  // Form submit event handler
   const onSubmit = (data) => {
     setLoading(true);
     post(`${API_URL}api/v1/bus-drivers/insert`, data, { withCredentials: true })
@@ -57,12 +65,16 @@ export default function RegisterDriverModal({ open, onClose = () => { }, onCreat
 
   return (
     <>
+
+      {/* The component is a modal so it is completely wrapped in a Dialog component */}
       <Dialog open={!!open} maxWidth="sm" fullWidth scroll="paper" fullScreen={fullScreen}>
         <DialogTitle>Registrar Conductor</DialogTitle>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           autoComplete="off">
           <DialogContent>
+
+            {/* Citizen ID field */}
             <div>
               <TextField
                 label="Cédula"
@@ -89,6 +101,8 @@ export default function RegisterDriverModal({ open, onClose = () => { }, onCreat
                 fullWidth
               />
             </div>
+
+            {/* Password field */}
             <div className={classes.marginTop}>
               <TextField
                 label="Contraseña"
@@ -102,6 +116,8 @@ export default function RegisterDriverModal({ open, onClose = () => { }, onCreat
                 fullWidth
               />
             </div>
+
+            {/* Name field */}
             <div className={classes.marginTop}>
               <TextField
                 label="Nombre"
@@ -113,6 +129,8 @@ export default function RegisterDriverModal({ open, onClose = () => { }, onCreat
                 fullWidth
               />
             </div>
+
+            {/* Lastname field */}
             <div className={classes.marginTop}>
               <TextField
                 label="Apellido"
@@ -124,6 +142,8 @@ export default function RegisterDriverModal({ open, onClose = () => { }, onCreat
                 fullWidth
               />
             </div>
+
+            {/* Route field */}
             <div className={classes.marginTop}>
               <Controller
                 name="route"
@@ -138,6 +158,8 @@ export default function RegisterDriverModal({ open, onClose = () => { }, onCreat
               />
             </div>
           </DialogContent>
+
+          {/* Modal Actions */}
           <DialogActions className={classes.marginTop}>
             <Button startIcon={<SaveIcon />} disabled={loading} type="submit" variant="contained" color="primary">
               {loading ? 'Guardando' : 'Guardar'}
@@ -148,13 +170,17 @@ export default function RegisterDriverModal({ open, onClose = () => { }, onCreat
           </DialogActions>
         </form>
       </Dialog>
+
+      {/* Error Modal */}
       <Dialog open={!!error} onClose={cleanError} maxWidth="xs" fullWidth>
         <DialogTitle>Lo sentimos</DialogTitle>
         <DialogContent>
           <DialogContentText>
+            {/* Error message */}
             {error}
           </DialogContentText>
         </DialogContent>
+        {/* Modal Actions */}
         <DialogActions>
           <Button onClick={cleanError} color="primary">
             Aceptar

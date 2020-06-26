@@ -19,26 +19,34 @@ import { ADMIN_LANDING } from '../../locations';
 
 export default function AdminSignInPage() {
   const dispatch = useDispatch();
-  const auth = useSelector(selectAuth(ADMIN));
   const classes = useStyles();
+
+  // Retrieve session
+  const auth = useSelector(selectAuth(ADMIN));
+
+  // Form manager
   const form = useForm();
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // Cleans any errors
   const cleanError = () => {
     setError(null);
   };
 
+  // Form submission success handler
   const onSuccess = (admin) => {
     dispatch(signIn(ADMIN, admin));
   };
 
+  // Form submission fail handler
   const onFail = (error) => {
     setError(error);
     setLoading(false);
   };
 
+  // Form submit event handler
   const onSubmit = (credentials) => {
     setLoading(true);
     post(`${API_URL}api/v1/admin/sign-in`, credentials, { withCredentials: true })
@@ -46,18 +54,22 @@ export default function AdminSignInPage() {
       .catch(error => onFail(error.response?.data?.error || 'Hubo un error de conexión'));
   };
 
-
+  // If there's a session redirect to the admin landing page
   if (!!auth) {
     return <Redirect to={ADMIN_LANDING()} />
   }
 
+  // Otherwise show the component
   return (
     <>
       <div className={classes.root}>
+
+        {/* These grids are to center the component in medium and large screen size devices */}
         <Grid container>
           <Grid item xs={12} md={4} />
           <Grid item xs={12} md={4}>
             <Paper className={classes.padding}>
+              {/* Form title */}
               <Typography className={classes.noMarginTop} variant="h5">
                 Admin | Iniciar Sesión
               </Typography>
@@ -65,6 +77,8 @@ export default function AdminSignInPage() {
                 className={classes.marginTop}
                 onSubmit={form.handleSubmit(onSubmit)}
                 autoComplete="off">
+
+                {/* Name field */}
                 <div>
                   <TextField
                     label="Nombre de usuario"
@@ -76,6 +90,8 @@ export default function AdminSignInPage() {
                     fullWidth
                   />
                 </div>
+
+                {/* Password field */}
                 <div className={classes.marginTop}>
                   <TextField
                     label="Contraseña"
@@ -88,6 +104,8 @@ export default function AdminSignInPage() {
                     fullWidth
                   />
                 </div>
+
+                {/* Submit button */}
                 <div className={classes.marginTop}>
                   <Button
                     type="submit"
@@ -104,13 +122,17 @@ export default function AdminSignInPage() {
           </Grid>
         </Grid>
       </div>
+
+      {/* Error modal */}
       <Dialog open={!!error} onClose={cleanError} maxWidth="xs" fullWidth>
         <DialogTitle>Lo sentimos</DialogTitle>
         <DialogContent>
           <DialogContentText>
+            {/* Error message */}
             {error}
           </DialogContentText>
         </DialogContent>
+        {/* Error actions */}
         <DialogActions>
           <Button onClick={cleanError} color="primary">
             Aceptar

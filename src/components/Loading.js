@@ -11,6 +11,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+/**
+ * Loading component
+ * Displays an spinner
+ */
 export default function Loading() {
   const classes = useStyles();
   return (

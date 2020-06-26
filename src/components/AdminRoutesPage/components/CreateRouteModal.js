@@ -15,6 +15,8 @@ import { API_URL } from '../../../settings';
 
 export default function CreateRouteModal({ open, onClose = () => { }, onCreated = () => { } }) {
   const classes = useStyles();
+
+  // Form manager
   const form = useForm({
     defaultValues: {
       name: "",
@@ -24,16 +26,21 @@ export default function CreateRouteModal({ open, onClose = () => { }, onCreated 
       canton: ""
     }
   });
+
   const theme = useTheme();
+
+  // If the theme detects we are in a mobile device fullscreen will be true
   const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // Cleans any errors
   const cleanError = () => {
     setError(null);
   };
 
+  // Form submission success handler
   const onSuccess = () => {
     onCreated();
     onClose();
@@ -41,11 +48,13 @@ export default function CreateRouteModal({ open, onClose = () => { }, onCreated 
     setLoading(false);
   };
 
+  // Form submission fail handler
   const onFail = (error) => {
     setError(error);
     setLoading(false);
   };
 
+  // Form submit event handler
   const onSubmit = (data) => {
     setLoading(true);
     post(`${API_URL}api/v1/bus-routes/insert`, data, { withCredentials: true })
@@ -55,12 +64,16 @@ export default function CreateRouteModal({ open, onClose = () => { }, onCreated 
 
   return (
     <>
+
+      {/* The component is a modal so it is completely wrapped in a Dialog component */}
       <Dialog open={!!open} maxWidth="sm" fullWidth scroll="paper" fullScreen={fullScreen}>
         <DialogTitle>Agregar Ruta</DialogTitle>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           autoComplete="off">
           <DialogContent>
+
+            {/* Name field */}
             <div>
               <TextField
                 label="Nombre"
@@ -72,6 +85,8 @@ export default function CreateRouteModal({ open, onClose = () => { }, onCreated 
                 fullWidth
               />
             </div>
+
+            {/* Code field */}
             <div className={classes.marginTop}>
               <TextField
                 label="Código de Transporte"
@@ -90,6 +105,8 @@ export default function CreateRouteModal({ open, onClose = () => { }, onCreated 
                 fullWidth
               />
             </div>
+
+            {/* Cost field */}
             <div className={classes.marginTop}>
               <TextField
                 label="Costo"
@@ -111,6 +128,8 @@ export default function CreateRouteModal({ open, onClose = () => { }, onCreated 
                 fullWidth
               />
             </div>
+
+            {/* Provinces field */}
             <FormControl fullWidth variant="outlined" className={classes.marginTop}>
               <InputLabel id="provice-select" error={!!form.errors.province}>Provincia</InputLabel>
               <Controller
@@ -135,6 +154,8 @@ export default function CreateRouteModal({ open, onClose = () => { }, onCreated 
               />
               <FormHelperText error={!!form.errors.province}>{form.errors.province?.message}</FormHelperText>
             </FormControl>
+
+            {/* Canton field */}
             <div className={classes.marginTop}>
               <TextField
                 label="Cantón"
@@ -154,6 +175,8 @@ export default function CreateRouteModal({ open, onClose = () => { }, onCreated 
               />
             </div>
           </DialogContent>
+
+          {/* Modal actions */}
           <DialogActions className={classes.marginTop}>
             <Button startIcon={<SaveIcon />} disabled={loading} type="submit" variant="contained" color="primary">
               {loading ? 'Guardando' : 'Guardar'}
@@ -164,13 +187,17 @@ export default function CreateRouteModal({ open, onClose = () => { }, onCreated 
           </DialogActions>
         </form>
       </Dialog>
+
+      {/* Error modal */}
       <Dialog open={!!error} onClose={cleanError} maxWidth="xs" fullWidth>
         <DialogTitle>Lo sentimos</DialogTitle>
         <DialogContent>
           <DialogContentText>
+            {/* Error message */}
             {error}
           </DialogContentText>
         </DialogContent>
+        {/* Modal actions */}
         <DialogActions>
           <Button onClick={cleanError} color="primary">
             Aceptar

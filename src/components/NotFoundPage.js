@@ -11,6 +11,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+/**
+ * Not found page component
+ * Displays 404 message
+ */
 export default function NotFoundPage() {
   const classes = useStyles();
   return (

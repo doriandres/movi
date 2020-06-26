@@ -12,16 +12,26 @@ import Loading from '../Loading';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 
+/**
+ * Gets the age based on the born date
+ * @param {Date|String} bornDate born date
+ * @returns {Number} Age
+ */
 function getAge(bornDate) {
   return Math.floor(new Date(Date.now() - new Date(bornDate).getTime()).getTime() / (1000 * 60 * 60 * 8760));
 }
 
+/**
+ * Administration Users page component
+ */
 export default function AdminUsersPage() {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-
+  /**
+   * Loads the data
+   */
   const loadUsers = () => {
     setLoading(true);
     get(`${API_URL}api/v1/customers/all`, { withCredentials: true })
@@ -34,22 +44,35 @@ export default function AdminUsersPage() {
       .finally(() => setLoading(false))
   };
 
+  // Use effect hook to load data when the component gets displayed for the first time
   useEffect(() => {
     loadUsers();
   }, []);
 
-
   return (
     <>
       <Container>
+
+        {/* Page title */}
         <Typography variant="h4">
           Usuarios
         </Typography>
         <br />
+
+        {/* If loading display loading spinner */}
         {loading && <Loading />}
+
+        {/* If there's a loadError display an alert message */}
         {error && <Alert severity="error">{error}</Alert>}
+
+        {/* 
+          If there's no error and it is not loading
+          Display the content
+        */}
         {!loading && !error && (
+          // If there are items
           customers.length ?
+            // Display the table
             (<TableContainer component={Paper}>
               <Table size="small">
                 <TableHead>
@@ -61,6 +84,7 @@ export default function AdminUsersPage() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
+                  {/* Iterate through the items to create table rows */}
                   {customers.map((customer) => (
                     <TableRow key={customer._id}>
                       <TableCell>{customer.email}</TableCell>
@@ -73,6 +97,7 @@ export default function AdminUsersPage() {
               </Table>
             </TableContainer>)
             :
+            // Otherwise show an alert message to let the user know there's no data
             <Alert severity="warning">No hay usuarios registradas</Alert>
         )}
       </Container>

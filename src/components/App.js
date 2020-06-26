@@ -13,6 +13,9 @@ const theme = createMuiTheme({
   }
 });
 
+/**
+ * Main component
+ */
 export default function App() {
   return (
     <ThemeProvider theme={theme}>

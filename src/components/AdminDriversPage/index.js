@@ -14,50 +14,73 @@ import { get } from "axios";
 import { API_URL } from '../../settings';
 import Loading from '../Loading';
 
+/**
+ * Administration Drivers page component
+ */
 export default function AdminDriversPage() {
-
   const [showCreate, setShowCreate] = useState(false);
   const [busDrivers, setBusDrivers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(null);
 
+  /**
+   * Hides the create modal
+   */
   const hideCreate = () => {
     setShowCreate(false);
   };
 
+  /**
+   * Loads the data
+   */
   const loadDrivers = () => {
     setLoading(true);
     get(`${API_URL}api/v1/bus-drivers/all`, { withCredentials: true })
-      .then((response) => {
-        setBusDrivers(response.data.result);
-      })
-      .catch(err => {
-        setLoadError(err.response?.data?.error || 'Hubo un error de conexión al cargar los conductores');
-      })
+      .then((response) => setBusDrivers(response.data.result))
+      .catch(err => setLoadError(err.response?.data?.error || 'Hubo un error de conexión al cargar los conductores'))
       .finally(() => setLoading(false))
   };
 
-  useEffect(() => {
-    loadDrivers();
-  }, []);
-
+  /**
+   * Callback handler to be executed when a new item is created
+   */
   const onCreated = () => {
     loadDrivers();
   };
 
+  // Use effect hook to load data when the component gets displayed for the first time
+  useEffect(() => {
+    loadDrivers();
+  }, []);
+
   return (
     <>
       <Container>
+
+        {/* Page title */}
         <Typography variant="h4">
           Conductores
         </Typography>
         <br />
+
+        {/* Add button */}
         <Button startIcon={<AddIcon />} variant="contained" onClick={() => setShowCreate(true)} color="primary">Registrar Conductor</Button>
         <br /><br />
+
+        {/* If loading display loading spinner */}
         {loading && <Loading />}
+
+        {/* If there's a loadError display an alert message */}
         {loadError && <Alert severity="error">{loadError}</Alert>}
+
+        {/* 
+          If there's no error and it is not loading
+          Display the content
+        */}
         {!loading && !loadError && (
+          // If there are items
           busDrivers.length ? (
+            // Display the table
             <TableContainer component={Paper}>
               <Table size="small">
                 <TableHead>
@@ -69,6 +92,7 @@ export default function AdminDriversPage() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
+                  {/* Iterate through the items to create table rows */}
                   {busDrivers.map((busDrivers) => (
                     <TableRow key={busDrivers._id}>
                       <TableCell>{busDrivers.citizenId}</TableCell>
@@ -82,9 +106,12 @@ export default function AdminDriversPage() {
             </TableContainer>
           )
             :
+            // Otherwise show an alert message to let the user know there's no data
             <Alert severity="warning">No hay conductores registrados</Alert>
         )}
       </Container>
+
+      {/* Add modal */}
       <RegisterDriverModal open={showCreate} onClose={hideCreate} onCreated={onCreated} />
     </>
   );
