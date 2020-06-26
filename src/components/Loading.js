@@ -15,7 +15,7 @@ export default function Loading() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <CircularProgress color="secondary" size={50} />
+      <CircularProgress color="primary" size={50} />
     </div>
   );
 }

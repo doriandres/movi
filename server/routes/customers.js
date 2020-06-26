@@ -2,7 +2,8 @@ const { Router } = require('express');
 const resolve = require("./../api/resolve");
 const ROLES = require("./../constants/roles");
 const { authenticate, deauthenticate } = require("./../security/auth");
-const { validateCustomerCredentials } = require("./../services/customer");
+const { validateCustomerCredentials, selectAllCustomers } = require("./../services/customer");
+const { authorize } = require("./../security/auth");
 
 const router = Router();
 
@@ -28,6 +29,15 @@ router.post("/sign-in", (req, res) => {
 router.post("/sign-out", (req, res) => {
   deauthenticate(res, ROLES.CUSTOMER);
   resolve(req, res)(null, true);
+});
+
+
+/**
+ * get
+ * /api/v1/customers/all
+ */
+router.get("/all", authorize(ROLES.ADMIN), (req, res) => {
+  selectAllCustomers(resolve(req, res));
 });
 
 module.exports = router;

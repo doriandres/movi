@@ -7,7 +7,7 @@ import { List, ListItem, IconButton, Container, Button } from '@material-ui/core
 import Drawer from '@material-ui/core/Drawer';
 import MoviIcon from "@material-ui/icons/DirectionsBusOutlined";
 import { Link } from 'react-router-dom';
-import { ADMIN_SIGN_IN, ADMIN_DRIVERS, ADMIN_LANDING, ADMIN_ROUTES } from '../../locations';
+import { ADMIN_SIGN_IN, ADMIN_DRIVERS, ADMIN_LANDING, ADMIN_ROUTES, ADMIN_USERS } from '../../locations';
 import clsx from 'clsx';
 import MenuIcon from '@material-ui/icons/Menu';
 import Dialog from '@material-ui/core/Dialog';
@@ -15,6 +15,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAuth } from '../../redux/selectors';
 import { ADMIN } from '../../constants/roles';
@@ -67,17 +68,24 @@ export default function NavigationBar() {
               <MoviIcon /> Movi
             </Typography>
           </Container>
-          <List>
-            {
-              adminAuth ?
-                <ListItem button onClick={onSignOutClick} disabled={isAdminSigningOut} color="inherit">Admin - Cerrar Sesión</ListItem>
-                :
-                <ListItem button component={Link} to={ADMIN_SIGN_IN()} color="inherit">Admin - Iniciar Sesión</ListItem>
-              }
-                <ListItem button component={Link} to={ADMIN_LANDING()} color="inherit">Página Principal</ListItem>
+          <List
+            subheader={
+              <ListSubheader component="div">
+                Administración
+              </ListSubheader>
+            }
+          >
+            {!adminAuth ?
+              <ListItem button component={Link} to={ADMIN_SIGN_IN()} color="inherit">Iniciar Sesión</ListItem>
+              :
+              <>
+                <ListItem button component={Link} to={ADMIN_LANDING()} color="inherit">Inicio</ListItem>
                 <ListItem button component={Link} to={ADMIN_DRIVERS()} color="inherit">Conductores</ListItem>
                 <ListItem button component={Link} to={ADMIN_ROUTES()} color="inherit">Rutas</ListItem>
-                <ListItem button component={Link} to={ADMIN_SIGN_IN()} color="inherit">Usuarios</ListItem>
+                <ListItem button component={Link} to={ADMIN_USERS()} color="inherit">Usuarios</ListItem>
+                <ListItem button onClick={onSignOutClick} disabled={isAdminSigningOut} color="inherit">Cerrar Sesión</ListItem>
+              </>
+            }
           </List>
         </div>
       </Drawer>
