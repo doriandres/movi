@@ -76,7 +76,14 @@ export default function CreateRouteModal({ open, onClose = () => { }, onCreated 
               <TextField
                 label="Código de Transporte"
                 name="code"
-                inputRef={form.register({ required: "Debe insertar un código de transporte" })}
+                inputRef={form.register({
+                  required: "Debe insertar un código de transporte",
+                  validate(value) {
+                    if (!(/^[A-Z]{3}-[0-9]{3}$/.test(value))) {
+                      return "Debe utilizar el formato \"XXX-000\"";
+                    }
+                  }
+                })}
                 variant="outlined"
                 error={!!form.errors.code}
                 helperText={form.errors.code?.message}
@@ -90,11 +97,10 @@ export default function CreateRouteModal({ open, onClose = () => { }, onCreated 
                 inputRef={form.register({
                   required: "Debe insertar un costo",
                   validate(val) {
-                    const number = parseFloat(val);
-                    if (Number.isNaN(number)) {
+                    if (isNaN(val)) {
                       return "Debe insertar un costo válido";
                     }
-                    if (number < 0) {
+                    if (parseFloat(val) < 0) {
                       return "Debe insertar un costo no negativo";
                     }
                   }
@@ -133,7 +139,14 @@ export default function CreateRouteModal({ open, onClose = () => { }, onCreated 
               <TextField
                 label="Cantón"
                 name="canton"
-                inputRef={form.register({ required: "Debe insertar un cantón" })}
+                inputRef={form.register({
+                  required: "Debe insertar un cantón",
+                  validate(value) {
+                    if (!(/^[a-zA-Z ]+$/.test(value))) {
+                      return "Debe insertar solo letras y espacios"
+                    }
+                  }
+                })}
                 variant="outlined"
                 error={!!form.errors.canton}
                 helperText={form.errors.canton?.message}

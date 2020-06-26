@@ -73,7 +73,7 @@ export default function RegisterDriverModal({ open, onClose = () => { }, onCreat
                   validate(val) {
                     const number = parseFloat(val);
                     if (
-                      Number.isNaN(number) ||  // must be a number
+                      isNaN(val) ||  // must be a number
                       number <= 0 || // can't be 0 or negativa
                       number % 1 !== 0 || // can't have decimals
                       String(number).length < 9 || // can't have less than 9 chars
