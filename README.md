@@ -36,7 +36,7 @@ For running in development you can simply run the following command:
 ```bash
 npm run api && npm run web
 ```
-After this you can use the application using `localhost:3000`.\
+After this you can use the application using `localhost:3000`.
 >Note: You can run the api using Visual Studio Code Node JS debugger as well.
 
 
