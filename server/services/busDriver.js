@@ -1,6 +1,11 @@
 const exception = require("../errors/exception");
 const BusDriver = require("../models/BusDriver");
 
+/**
+ * Validates bus driver credentials
+ * @param {Object} data credentials data
+ * @param {(error: Error|null) => void} callback callback
+ */
 function validateBusDriverCredentials(data, callback) {
   const busDriver = new BusDriver(data);
   BusDriver.findOne({ citizenId: busDriver.citizenId }, (error, result) => {
@@ -21,6 +26,11 @@ function validateBusDriverCredentials(data, callback) {
   });
 }
 
+/**
+ * Inserts a bus driver
+ * @param {Object} data Bus driver data
+ * @param {(error: Error|null, busDriver: Object) => void} callback callback
+ */
 function insertBusDriver(data, callback) {
   const busDriver = new BusDriver(data);
   busDriver.save()
@@ -34,6 +44,10 @@ function insertBusDriver(data, callback) {
     });
 }
 
+/**
+ * Retrieves all the bus drivers
+ * @param {(error: Error|null, busDrivers: Object[]) => void} callback callback
+ */
 function selectAllBusDriver(callback) {
   BusDriver.find({}).populate('route').exec((error, results) => {
     if (error) {
@@ -42,7 +56,6 @@ function selectAllBusDriver(callback) {
     return callback(null, results);
   })
 }
-
 
 module.exports = {
   validateBusDriverCredentials,

@@ -1,6 +1,11 @@
 const exception = require("./../errors/exception");
 const Admin = require("./../models/Admin");
 
+/**
+ * Validates admin credentials
+ * @param {Object} data crendentials data
+ * @param {(error: Error|null) => void} callback Callback
+ */
 function validateAdminCredentials(data, callback) {
   const admin = new Admin(data);
   Admin.findOne({ username: admin.username }, (error, result) => {

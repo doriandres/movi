@@ -19,7 +19,6 @@ function authenticate(res, key, data) {
  */
 function deauthenticate(res, key) {
   res.clearCookie(key);
-  // res.cookie(key, 'signed out', { expires: new Date(Date.now() + EXPIRATION_TIME), secure: false, httpOnly: true, sameSite: 'None' });
 }
 
 /**

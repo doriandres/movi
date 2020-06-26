@@ -1,6 +1,11 @@
 const exception = require("./../errors/exception");
 const Customer = require("./../models/Customer");
 
+/**
+ * Validates customer credentials
+ * @param {Object} data customer credential data
+ * @param {(error: Error|null, customer: Object) => void} callback callback
+ */
 function validateCustomerCredentials(data, callback) {
   const customer = new Customer(data);
   Customer.findOne({ email: customer.email }, (error, result) => {
@@ -25,6 +30,10 @@ function validateCustomerCredentials(data, callback) {
   });
 }
 
+/**
+ * Retrieves all customers
+ * @param {(error: Error|null, customers: Object[]) => void} callback callback
+ */
 function selectAllCustomers(callback) {
   Customer.find({}, (error, results) => {
     if (error) {

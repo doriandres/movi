@@ -32,6 +32,7 @@ router.post("/sign-out", (req, res) => {
 /**
  * POST
  * /api/v1/bus-drivers/insert
+ * Auth [ADMIN]
  */
 router.post("/insert", authorize(ROLES.ADMIN), (req, res) => {
   const data = req.body;
@@ -41,6 +42,7 @@ router.post("/insert", authorize(ROLES.ADMIN), (req, res) => {
 /**
  * GET
  * /api/v1/bus-drivers/all
+ * Auth [ADMIN]
  */
 router.get("/all", authorize(ROLES.ADMIN), (req, res) => {
   selectAllBusDriver(resolve(req, res));

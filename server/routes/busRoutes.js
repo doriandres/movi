@@ -9,6 +9,7 @@ const router = Router();
 /**
  * GET
  * /api/v1/bus-routes/all
+ * AUTH [ADMIN]
  */
 router.get("/all", authorize(ROLES.ADMIN), (req, res) => {
   selectAllBusRoutes(resolve(req, res));
@@ -17,6 +18,7 @@ router.get("/all", authorize(ROLES.ADMIN), (req, res) => {
 /**
  * POST
  * /api/v1/bus-routes/insert
+ * AUTH [ADMIN]
  */
 router.post("/insert", authorize(ROLES.ADMIN), (req, res) => {
   const data = req.body;

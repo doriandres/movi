@@ -35,6 +35,7 @@ router.post("/sign-out", (req, res) => {
 /**
  * get
  * /api/v1/customers/all
+ * AUTH [ADMIN]
  */
 router.get("/all", authorize(ROLES.ADMIN), (req, res) => {
   selectAllCustomers(resolve(req, res));
