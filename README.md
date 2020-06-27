@@ -13,7 +13,6 @@
 [Drivers Page](https://trello.com/c/NJ2E0Zda/5-drivers-page)| ![status](https://img.shields.io/static/v1?label=status&message=Done&color=green) |`v1.0.0`
 [Register Driver](https://trello.com/c/mEDFoMP7/7-register-driver)| ![status](https://img.shields.io/static/v1?label=status&message=Done&color=green) |`v1.0.0`
 [Register Route](https://trello.com/c/nYF7M686/11-register-route)| ![status](https://img.shields.io/static/v1?label=status&message=Done&color=green) |`v1.0.0`
-[Register Route](https://trello.com/c/nYF7M686/11-register-route)| ![status](https://img.shields.io/static/v1?label=status&message=Done&color=green) |`v1.0.0`
 [Users](https://trello.com/c/6ObVFAcA/8-users)| ![status](https://img.shields.io/static/v1?label=status&message=Done&color=green) |`v1.0.0`
 
 ## Issues
