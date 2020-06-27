@@ -1,6 +1,6 @@
 # Movi &middot; ![License](https://img.shields.io/badge/license-MIT-blue.svg) [![Heroku App Status](http://heroku-shields.herokuapp.com/movi-ulacit)](https://movi-ulacit.herokuapp.com)
 
-![logo](https://drive.google.com/uc?id=10o6s1j25IkaDPej79zTlFn1nXFFZSpB4)
+![logo](https://i.ibb.co/2kZ13Gz/movi-logo.png)
 
 ## Features
 
