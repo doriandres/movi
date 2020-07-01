@@ -43,9 +43,10 @@ function authorize(...roles) {
             res.status(401);
             return res.json({ error });
           }
+        } else {
+          req.session = data;
+          next();
         }
-        req.session = data;
-        next();
       });
     };
     makeVerification();
