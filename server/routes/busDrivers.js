@@ -12,11 +12,19 @@ const router = Router();
  */
 router.post("/sign-in", (req, res) => {
   const credentials = req.body;
-  validateBusDriverCredentials(credentials, (error, user) => {
+  validateBusDriverCredentials(credentials, (error, driver) => {
+    let session = null;
     if (!error) {
-      authenticate(res, ROLES.DRIVER, user);
+      session = {
+        _id: driver._id,
+        citizenId: driver.citizenId,
+        name: driver.name,
+        lastName: driver.lastName,
+        route: driver.route
+      };
+      authenticate(res, ROLES.DRIVER, session);
     }
-    resolve(req, res)(error, user);
+    resolve(req, res)(error, session);
   });
 });
 

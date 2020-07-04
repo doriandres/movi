@@ -7,7 +7,7 @@ import { List, ListItem, IconButton, Container, Button } from '@material-ui/core
 import Drawer from '@material-ui/core/Drawer';
 import MoviIcon from "@material-ui/icons/DirectionsBusOutlined";
 import { Link } from 'react-router-dom';
-import { ADMIN_SIGN_IN, ADMIN_DRIVERS, ADMIN_LANDING, ADMIN_ROUTES, ADMIN_USERS } from '../../locations';
+import { ADMIN_SIGN_IN, ADMIN_DRIVERS, ADMIN_LANDING, ADMIN_ROUTES, ADMIN_USERS, DRIVERS_LANDING, DRIVERS_SIGN_IN } from '../../locations';
 import clsx from 'clsx';
 import MenuIcon from '@material-ui/icons/Menu';
 import Dialog from '@material-ui/core/Dialog';
@@ -18,7 +18,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAuth } from '../../redux/selectors';
-import { ADMIN } from '../../constants/roles';
+import { ADMIN, DRIVER } from '../../constants/roles';
 import { signOut } from '../../redux/actions';
 import { post } from 'axios';
 import { API_URL } from '../../settings';
@@ -28,14 +28,16 @@ export default function NavigationBar() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const adminAuth = useSelector(selectAuth(ADMIN));
+  const driverAuth = useSelector(selectAuth(DRIVER));
 
   const [error, setError] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
   const [isAdminSigningOut, setIsAdminSigningOut] = useState(false);
+  const [isDriverSigningOut, setIsDriverSigningOut] = useState(false);
 
   const cleanError = () => setError(null);
 
-  const onSignOutClick = (event) => {
+  const onAdminSignOutClick = (event) => {
     event.stopPropagation();
     setIsAdminSigningOut(true);
     post(`${API_URL}api/v1/admin/sign-out`, null, { withCredentials: true })
@@ -45,6 +47,18 @@ export default function NavigationBar() {
       })
       .catch(error => setError(error.response?.data?.error || 'Hubo un error de conexión'))
       .finally(() => setIsAdminSigningOut(false));
+  };
+
+  const onDriverSignOutClick = (event) => {
+    event.stopPropagation();
+    setIsDriverSigningOut(true);
+    post(`${API_URL}api/v1/bus-drivers/sign-out`, null, { withCredentials: true })
+      .then(() => {
+        dispatch(signOut([DRIVER]));
+        setShowMenu(false);
+      })
+      .catch(error => setError(error.response?.data?.error || 'Hubo un error de conexión'))
+      .finally(() => setIsDriverSigningOut(false));
   };
 
   return (
@@ -83,7 +97,24 @@ export default function NavigationBar() {
                 <ListItem button component={Link} to={ADMIN_DRIVERS()} color="inherit">Conductores</ListItem>
                 <ListItem button component={Link} to={ADMIN_ROUTES()} color="inherit">Rutas</ListItem>
                 <ListItem button component={Link} to={ADMIN_USERS()} color="inherit">Usuarios</ListItem>
-                <ListItem button onClick={onSignOutClick} disabled={isAdminSigningOut} color="inherit">Cerrar Sesión</ListItem>
+                <ListItem button onClick={onAdminSignOutClick} disabled={isAdminSigningOut} color="inherit">Cerrar Sesión</ListItem>
+              </>
+            }
+          </List>
+
+          <List
+            subheader={
+              <ListSubheader component="div">
+                Conductores
+              </ListSubheader>
+            }
+          >
+            {!driverAuth ?
+              <ListItem button component={Link} to={DRIVERS_SIGN_IN()} color="inherit">Iniciar Sesión</ListItem>
+              :
+              <>
+                <ListItem button component={Link} to={DRIVERS_LANDING()} color="inherit">Inicio</ListItem>
+                <ListItem button onClick={onDriverSignOutClick} disabled={isDriverSigningOut} color="inherit">Cerrar Sesión</ListItem>
               </>
             }
           </List>
