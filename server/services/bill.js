@@ -14,10 +14,9 @@ function processCheckout(bill, callback) {
   // This allows to run multiple async processes at once
   Promise.all([
     // Find the customer
-    promisify(selectCustomerByCode.bind(null, bill.customer)),
-
+    promisify(selectCustomerByCode)(bill.customer),
     // Find the driver
-    promisify(selectBusDriverById.bind(null, bill.driver)),
+    promisify(selectBusDriverById)(bill.driver),
   ])
     .then(([customer, driver]) => {
       // If driver has no route

@@ -7,11 +7,11 @@ const { selectRejectionsByDriverId } = require('../services/rejection');
 const router = Router();
 
 /**
- * POST
+ * GET
  * /api/v1/rejections/driver/<driver_id>
  * AUTH [DRIVERS]
  */
-router.post("/driver/:id", authorize(ROLES.DRIVER), (req, res) => {
+router.get("/driver/:id", authorize(ROLES.DRIVER), (req, res) => {
   const { id } = req.params;
   selectRejectionsByDriverId(id, resolve(req, res));
 });
