@@ -3,11 +3,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import useStyles from "./styles";
-import { List, ListItem, IconButton, Container, Button } from '@material-ui/core';
+import { List, ListItem, IconButton, Container, Button, ListItemIcon, ListItemText } from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
 import MoviIcon from "@material-ui/icons/DirectionsBusOutlined";
 import { Link } from 'react-router-dom';
-import { ADMIN_SIGN_IN, ADMIN_DRIVERS, ADMIN_LANDING, ADMIN_ROUTES, ADMIN_USERS, DRIVERS_LANDING, DRIVERS_SIGN_IN } from '../../locations';
+import { ADMIN_SIGN_IN, ADMIN_DRIVERS, ADMIN_LANDING, ADMIN_ROUTES, ADMIN_USERS, DRIVERS_LANDING, DRIVERS_SIGN_IN, DRIVERS_CHECKOUT, DRIVERS_INCOMES, DRIVERS_REJECTED } from '../../locations';
 import clsx from 'clsx';
 import MenuIcon from '@material-ui/icons/Menu';
 import Dialog from '@material-ui/core/Dialog';
@@ -22,7 +22,15 @@ import { ADMIN, DRIVER } from '../../constants/roles';
 import { signOut } from '../../redux/actions';
 import { post } from 'axios';
 import { API_URL } from '../../settings';
-
+import HomeIcon from "@material-ui/icons/Home"
+import MoneyIcon from "@material-ui/icons/MonetizationOn";
+import IncomesIcon from "@material-ui/icons/InsertChart";
+import RejectedIcon from "@material-ui/icons/Report";
+import SignOutIcon from "@material-ui/icons/ExitToApp";
+import SignInIcon from "@material-ui/icons/OpenInNew";
+import BusIcon from "@material-ui/icons/DirectionsBus";
+import RouteIcon from "@material-ui/icons/Directions";
+import UserIcon from "@material-ui/icons/SupervisorAccount";
 
 export default function NavigationBar() {
   const classes = useStyles();
@@ -90,14 +98,44 @@ export default function NavigationBar() {
             }
           >
             {!adminAuth ?
-              <ListItem button component={Link} to={ADMIN_SIGN_IN()} color="inherit">Iniciar Sesión</ListItem>
+              <ListItem button component={Link} to={ADMIN_SIGN_IN()} color="inherit">
+                <ListItemIcon>
+                  <SignInIcon />
+                </ListItemIcon>
+                <ListItemText primary="Iniciar Sesión" />
+              </ListItem>
               :
               <>
-                <ListItem button component={Link} to={ADMIN_LANDING()} color="inherit">Inicio</ListItem>
-                <ListItem button component={Link} to={ADMIN_DRIVERS()} color="inherit">Conductores</ListItem>
-                <ListItem button component={Link} to={ADMIN_ROUTES()} color="inherit">Rutas</ListItem>
-                <ListItem button component={Link} to={ADMIN_USERS()} color="inherit">Usuarios</ListItem>
-                <ListItem button onClick={onAdminSignOutClick} disabled={isAdminSigningOut} color="inherit">Cerrar Sesión</ListItem>
+                <ListItem button component={Link} to={ADMIN_LANDING()} color="inherit">
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Inicio" />
+                </ListItem>
+                <ListItem button component={Link} to={ADMIN_DRIVERS()} color="inherit">
+                  <ListItemIcon>
+                    <BusIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Conductores" />
+                </ListItem>
+                <ListItem button component={Link} to={ADMIN_ROUTES()} color="inherit">
+                  <ListItemIcon>
+                    <RouteIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Rutas" />
+                </ListItem>
+                <ListItem button component={Link} to={ADMIN_USERS()} color="inherit">
+                  <ListItemIcon>
+                    <UserIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Usuarios" />
+                </ListItem>
+                <ListItem button onClick={onAdminSignOutClick} disabled={isAdminSigningOut} color="inherit">
+                  <ListItemIcon>
+                    <SignOutIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Cerrar Sesión" />
+                </ListItem>
               </>
             }
           </List>
@@ -110,11 +148,44 @@ export default function NavigationBar() {
             }
           >
             {!driverAuth ?
-              <ListItem button component={Link} to={DRIVERS_SIGN_IN()} color="inherit">Iniciar Sesión</ListItem>
+              <ListItem button component={Link} to={DRIVERS_SIGN_IN()} color="inherit">
+                <ListItemIcon>
+                  <SignInIcon />
+                </ListItemIcon>
+                <ListItemText primary="Iniciar Sesión" />
+              </ListItem>
               :
               <>
-                <ListItem button component={Link} to={DRIVERS_LANDING()} color="inherit">Inicio</ListItem>
-                <ListItem button onClick={onDriverSignOutClick} disabled={isDriverSigningOut} color="inherit">Cerrar Sesión</ListItem>
+                <ListItem button component={Link} to={DRIVERS_LANDING()} color="inherit">
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Inicio" />
+                </ListItem>
+                <ListItem button component={Link} to={DRIVERS_CHECKOUT()} color="inherit">
+                  <ListItemIcon>
+                    <MoneyIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Cobro" />
+                </ListItem>
+                <ListItem button component={Link} to={DRIVERS_INCOMES()} color="inherit">
+                  <ListItemIcon>
+                    <IncomesIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Ingresos" />
+                </ListItem>
+                <ListItem button component={Link} to={DRIVERS_REJECTED()} color="inherit">
+                  <ListItemIcon>
+                    <RejectedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Rechazos" />
+                </ListItem>
+                <ListItem button onClick={onDriverSignOutClick} disabled={isDriverSigningOut} color="inherit">
+                  <ListItemIcon>
+                    <SignOutIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Cerrar Sesión" />
+                </ListItem>
               </>
             }
           </List>
