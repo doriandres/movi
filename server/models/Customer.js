@@ -12,6 +12,7 @@ const Customer = mongoose.model('Customer', {
   expirationYear: { type: Number, required: true },
   cardCsv: { type: Number, required: true },
   balance: { type: Number, required: true },
+  code: { type: String, unique: true, required: true },
 });
 
 module.exports = Customer;

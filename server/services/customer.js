@@ -31,11 +31,29 @@ function validateCustomerCredentials(data, callback) {
 }
 
 /**
+ * Inserts a customer
+ * @param {Object} data Customer data
+ * @param {(error: Error|null, busDriver: Object) => void} callback callback
+ */
+function insertCustomer(data, callback) {
+  const customer = new Customer({ ...data, code: new Date().getTime().toString(36) });
+  customer.save()
+    .then(result => callback(null, result))
+    .catch(error => {
+      if (error.name === 'MongoError' && error.code === 11000) {
+        callback(exception("Ya existe un usuarios registrado con ese correo electrónico", 422));
+      } else {
+        callback(exception(error));
+      }
+    });
+}
+
+/**
  * Retrieves all customers
  * @param {(error: Error|null, customers: Object[]) => void} callback callback
  */
 function selectAllCustomers(callback) {
-  Customer.find({}, (error, results) => {
+  Customer.find({}, '-password', (error, results) => {
     if (error) {
       return callback(exception(error));
     }
@@ -45,5 +63,6 @@ function selectAllCustomers(callback) {
 
 module.exports = {
   validateCustomerCredentials,
+  insertCustomer,
   selectAllCustomers
 };

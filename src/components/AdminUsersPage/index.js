@@ -77,6 +77,7 @@ export default function AdminUsersPage() {
               <Table size="small">
                 <TableHead>
                   <TableRow>
+                    <TableCell>Código</TableCell>
                     <TableCell>Correo</TableCell>
                     <TableCell>Nombre</TableCell>
                     <TableCell>Apellido</TableCell>
@@ -87,6 +88,7 @@ export default function AdminUsersPage() {
                   {/* Iterate through the items to create table rows */}
                   {customers.map((customer) => (
                     <TableRow key={customer._id}>
+                      <TableCell>{customer.code}</TableCell>
                       <TableCell>{customer.email}</TableCell>
                       <TableCell>{customer.name}</TableCell>
                       <TableCell>{customer.lastName}</TableCell>
@@ -98,7 +100,7 @@ export default function AdminUsersPage() {
             </TableContainer>)
             :
             // Otherwise show an alert message to let the user know there's no data
-            <Alert severity="warning">No hay usuarios registradas</Alert>
+            <Alert severity="warning">No hay usuarios registrados</Alert>
         )}
       </Container>
     </>
