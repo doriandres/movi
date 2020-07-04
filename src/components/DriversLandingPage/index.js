@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, Paper, Grid, Typography, Container } from '@material-ui/core';
-import BusIcon from "@material-ui/icons/DirectionsBus";
-import RouteIcon from "@material-ui/icons/Directions";
-import UserIcon from "@material-ui/icons/SupervisorAccount";
+import MoneyIcon from "@material-ui/icons/MonetizationOn";
+import IncomesIcon from "@material-ui/icons/InsertChart";
+import RejectedIcon from "@material-ui/icons/Report";
 import useStyles from "../shared/styles/forms";
-import { ADMIN_ROUTES, ADMIN_DRIVERS, ADMIN_USERS } from '../../locations';
+import { DRIVERS_CHECKOUT, DRIVERS_INCOMES, DRIVERS_REJECTED } from '../../locations';
 import { Link } from 'react-router-dom';
 import MoviIcon from "@material-ui/icons/DirectionsBusOutlined";
 
@@ -35,11 +35,11 @@ export default function DriverLandingPage() {
                         variant="contained"
                         color="primary"
                         size="large"
-                        startIcon={<BusIcon />}
+                        startIcon={<MoneyIcon />}
                         component={Link}
-                        to={ADMIN_DRIVERS()}
+                        to={DRIVERS_CHECKOUT()}
                         fullWidth>
-                        Conductores
+                        Cobro
                       </Button>
                     </Grid>
                     <Grid item sm={12} md={4} >
@@ -48,10 +48,11 @@ export default function DriverLandingPage() {
                         variant="contained"
                         color="primary"
                         size="large"
-                        startIcon={<RouteIcon />}
-                        component={Link} to={ADMIN_ROUTES()}
+                        startIcon={<IncomesIcon />}
+                        component={Link}
+                        to={DRIVERS_INCOMES()}
                         fullWidth>
-                        Rutas
+                        Ganancias
                       </Button>
                     </Grid>
                     <Grid item sm={12} md={4} >
@@ -60,10 +61,11 @@ export default function DriverLandingPage() {
                         variant="contained"
                         color="primary"
                         size="large"
-                        startIcon={<UserIcon />}
-                        component={Link} to={ADMIN_USERS()}
+                        startIcon={<RejectedIcon />}
+                        component={Link}
+                        to={DRIVERS_REJECTED()}
                         fullWidth>
-                        Usuarios
+                        Rechazados
                       </Button>
                     </Grid>
                   </Grid>

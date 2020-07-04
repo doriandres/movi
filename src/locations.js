@@ -8,3 +8,6 @@ export const ADMIN_USERS = () => '/admin/usuarios';
 export const ADMIN_DRIVERS = () => '/admin/conductores';
 export const DRIVERS_LANDING = () => '/conductores';
 export const DRIVERS_SIGN_IN = () => '/conductores/iniciar-sesion';
+export const DRIVERS_CHECKOUT = () => '/conductores/cobro';
+export const DRIVERS_INCOMES = () => '/conductores/ganancias';
+export const DRIVERS_REJECTED = () => '/conductores/rechazos';
