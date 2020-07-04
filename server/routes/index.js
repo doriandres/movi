@@ -11,5 +11,11 @@ module.exports = {
   "bus-routes": require("./busRoutes"),
 
   // api/v1/bus-drivers
-  "bus-drivers": require("./busDrivers")
+  "bus-drivers": require("./busDrivers"),
+
+  // api/v1/bills
+  "bills": require("./bills"),
+
+  // api/v1/rejections
+  "rejections": require("./rejections"),
 };
