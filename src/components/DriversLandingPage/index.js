@@ -7,11 +7,13 @@ import useStyles from "../shared/styles/forms";
 import { DRIVERS_CHECKOUT, DRIVERS_INCOMES, DRIVERS_REJECTED } from '../../locations';
 import { Link } from 'react-router-dom';
 import MoviIcon from "@material-ui/icons/DirectionsBusOutlined";
+import { useSelector } from 'react-redux';
+import { selectAuth } from '../../redux/selectors';
+import { DRIVER } from '../../constants/roles';
 
 export default function DriverLandingPage() {
-
   const classes = useStyles();
-
+  const driverInfo = useSelector(selectAuth(DRIVER));
   return (
     <>
       <div className={classes.root}>
@@ -23,6 +25,12 @@ export default function DriverLandingPage() {
                 <Paper className={classes.padding}>
                   <Typography className={classes.noMarginTop} variant="h4">
                     <MoviIcon />Movi - Monedero Digital
+                  </Typography>
+                  <Typography className={classes.marginTop} variant="h5">
+                    {driverInfo.name} {driverInfo.lastName}
+                  </Typography>
+                  <Typography className={classes.noMarginTop} variant="h6">
+                    {driverInfo.route.code} - {driverInfo.route.name} - ₡{driverInfo.route.cost}
                   </Typography>
                   <Typography className={classes.marginTop} variant="subtitle1">
                     Bienvenido a la página para conductores de Movi
@@ -52,7 +60,7 @@ export default function DriverLandingPage() {
                         component={Link}
                         to={DRIVERS_INCOMES()}
                         fullWidth>
-                        Ganancias
+                        Ingresos
                       </Button>
                     </Grid>
                     <Grid item sm={12} md={4} >
@@ -65,7 +73,7 @@ export default function DriverLandingPage() {
                         component={Link}
                         to={DRIVERS_REJECTED()}
                         fullWidth>
-                        Rechazados
+                        Rechazos
                       </Button>
                     </Grid>
                   </Grid>
