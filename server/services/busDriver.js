@@ -60,8 +60,29 @@ function selectAllBusDriver(callback) {
   })
 }
 
+/**
+ * Select a driver by its id
+ * @param {String} id Driver id
+ * @param {(error: Error|null, driver: Object) => void} callback callback
+ */
+function selectBusDriverById(id, callback) {
+  BusDriver.findById(id)
+    .populate('route')
+    .exec((error, driver) => {
+      if (error) {
+        return callback(exception(error));
+      }
+      if (!driver) {
+        return callback(exception("El conductor no existe", 401));
+      }
+
+      callback(null, driver);
+    });
+}
+
 module.exports = {
   validateBusDriverCredentials,
   insertBusDriver,
-  selectAllBusDriver
+  selectAllBusDriver,
+  selectBusDriverById
 };

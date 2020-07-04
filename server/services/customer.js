@@ -33,7 +33,7 @@ function validateCustomerCredentials(data, callback) {
 /**
  * Inserts a customer
  * @param {Object} data Customer data
- * @param {(error: Error|null, busDriver: Object) => void} callback callback
+ * @param {(error: Error|null, customer: Object) => void} callback callback
  */
 function insertCustomer(data, callback) {
   const customer = new Customer({ ...data, code: new Date().getTime().toString(36) });
@@ -61,8 +61,26 @@ function selectAllCustomers(callback) {
   });
 }
 
+/**
+ * Select a customer by its code
+ * @param {String} code Customer code
+ * @param {(error: Error|null, customer: Object) => void} callback callback
+ */
+function selectCustomerByCode(code, callback) {
+  Customer.findOne({ code: code, status: 'active' }, (error, customer) => {
+    if (error) {
+      return callback(exception(error));
+    }
+    if (!customer) {
+      return callback(exception("El usuario no existe o no está activo", 401));
+    }
+    callback(null, customer);
+  });
+}
+
 module.exports = {
   validateCustomerCredentials,
   insertCustomer,
-  selectAllCustomers
+  selectAllCustomers,
+  selectCustomerByCode
 };
