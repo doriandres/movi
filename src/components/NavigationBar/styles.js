@@ -11,7 +11,8 @@ export default makeStyles((theme) => ({
     marginLeft: '-50px'
   },
   titleMenu: {
-    marginTop: "20px"
+    marginTop: "20px",
+    marginLeft: '50px',
   },
   marginBottom: {
     marginBottom: theme.spacing(4),
