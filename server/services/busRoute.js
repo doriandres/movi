@@ -10,7 +10,13 @@ function insertBusRoute(data, callback) {
   const busRoute = new BusRoute(data);
   busRoute.save()
     .then(result => callback(null, result))
-    .catch(error => callback(exception(error)));
+    .catch(error => {
+      if (error.name === 'MongoError' && error.code === 11000) {
+        callback(exception("Ya existe una ruta registrada con ese código", 422));
+      } else {
+        callback(exception(error));
+      }
+    });
 }
 
 /**

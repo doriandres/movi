@@ -2,7 +2,7 @@ const { Router } = require('express');
 const resolve = require("./../api/resolve");
 const ROLES = require("./../constants/roles");
 const { authenticate, deauthenticate } = require("./../security/auth");
-const { validateCustomerCredentials, selectAllCustomers } = require("./../services/customer");
+const { validateCustomerCredentials, selectAllCustomers, banCustomerById } = require("./../services/customer");
 const { authorize } = require("./../security/auth");
 
 const router = Router();
@@ -40,5 +40,15 @@ router.post("/sign-out", (req, res) => {
 router.get("/all", authorize(ROLES.ADMIN), (req, res) => {
   selectAllCustomers(resolve(req, res));
 });
+
+/**
+ * PUT
+ * /api/v1/customers/ban/<customer_id>
+ */
+router.put("/ban/:id", (req, res) => {
+  const { id } = req.params;
+  banCustomerById(id, resolve(req, res));
+});
+
 
 module.exports = router;

@@ -36,7 +36,7 @@ function validateCustomerCredentials(data, callback) {
  * @param {(error: Error|null, customer: Object) => void} callback callback
  */
 function insertCustomer(data, callback) {
-  const customer = new Customer({ ...data, code: new Date().getTime().toString(36) });
+  const customer = new Customer({ ...data, status: 'active', code: new Date().getTime().toString(36) });
   customer.save()
     .then(result => callback(null, result))
     .catch(error => {
@@ -53,7 +53,7 @@ function insertCustomer(data, callback) {
  * @param {(error: Error|null, customers: Object[]) => void} callback callback
  */
 function selectAllCustomers(callback) {
-  Customer.find({}, '-password -cardCsv', (error, results) => {
+  Customer.find({ status: 'active' }, '-password -cardCsv', (error, results) => {
     if (error) {
       return callback(exception(error));
     }
@@ -78,9 +78,24 @@ function selectCustomerByCode(code, callback) {
   });
 }
 
+/**
+ * Bans a customer
+ * @param {String} id Customer ID
+ * @param {(error: Error, result: Boolean) => void} callback Callback
+ */
+function banCustomerById(id, callback) {
+  Customer.updateOne({ _id: id }, { $set: { status: 'inactive' } }, error => {
+    if (error) {
+      return callback(exception(error));
+    }
+    return callback(null, true);
+  });
+}
+
 module.exports = {
   validateCustomerCredentials,
   insertCustomer,
   selectAllCustomers,
-  selectCustomerByCode
+  selectCustomerByCode,
+  banCustomerById
 };
