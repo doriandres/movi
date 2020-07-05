@@ -22,8 +22,9 @@ function selectRejectionsByDriverId(id, callback) {
   Rejection
     .find({ driver: id })
     .populate('route')
-    .populate({ path: 'customer', select: '-password' })
+    .populate({ path: 'customer', select: '-password -cardCsv' })
     .populate({ path: 'driver', select: '-password' })
+    .sort('-date')
     .exec((error, results) => {
       if (error) {
         return callback(exception(error));

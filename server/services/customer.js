@@ -53,7 +53,7 @@ function insertCustomer(data, callback) {
  * @param {(error: Error|null, customers: Object[]) => void} callback callback
  */
 function selectAllCustomers(callback) {
-  Customer.find({}, '-password', (error, results) => {
+  Customer.find({}, '-password -cardCsv', (error, results) => {
     if (error) {
       return callback(exception(error));
     }
