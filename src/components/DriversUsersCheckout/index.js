@@ -15,6 +15,7 @@ import { selectAuth } from '../../redux/selectors';
 import { DRIVER } from '../../constants/roles';
 import { useHistory } from 'react-router-dom';
 import { DRIVERS_LANDING } from '../../locations';
+import MoneyIcon from "@material-ui/icons/MonetizationOn";
 
 export default function DriversUsersCheckout() {
   const classes = useStyles();
@@ -66,7 +67,7 @@ export default function DriversUsersCheckout() {
             <Paper className={classes.padding}>
               {/* Form title */}
               <Typography className={classes.noMarginTop} variant="h5">
-                Cobro
+                <MoneyIcon /> Cobro
               </Typography>
               <Typography className={classes.noMarginTop} variant="h6">
                 {driverInfo.route.code} - {driverInfo.route.name} - ₡{driverInfo.route.cost}

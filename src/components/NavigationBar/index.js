@@ -73,13 +73,14 @@ export default function NavigationBar() {
     <>
       <div className={clsx(classes.grow, classes.marginBottom)}>
         <AppBar position="static">
-          <Toolbar variant="dense">
-            <IconButton onClick={() => setShowMenu(true)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <Toolbar className={classes.bar} variant="dense">
+            <IconButton onClick={() => setShowMenu(true)} edge="start" color="inherit" aria-label="menu">
               <MenuIcon />
             </IconButton>
             <Typography className={classes.title} variant="h5">
               <MoviIcon /> Movi
             </Typography>
+            <div />
           </Toolbar>
         </AppBar>
       </div>

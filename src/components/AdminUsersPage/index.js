@@ -18,6 +18,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import UserIcon from "@material-ui/icons/SupervisorAccount";
 
 /**
  * Gets the age based on the born date
@@ -91,7 +92,7 @@ export default function AdminUsersPage() {
 
         {/* Page title */}
         <Typography variant="h4">
-          Usuarios
+          <UserIcon /> Usuarios
         </Typography>
         <br />
 

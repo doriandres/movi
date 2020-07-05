@@ -15,6 +15,7 @@ import Loading from '../Loading';
 import { useSelector } from 'react-redux';
 import { selectAuth } from '../../redux/selectors';
 import { DRIVER } from '../../constants/roles';
+import IncomesIcon from "@material-ui/icons/InsertChart";
 
 function getDateTimeString(date) {
   const _date = new Date(date);
@@ -53,7 +54,7 @@ export default function DriversIncomesReport() {
 
         {/* Page title */}
         <Typography variant="h4">
-          Ingresos
+          <IncomesIcon /> Ingresos
         </Typography>
         <br />
 

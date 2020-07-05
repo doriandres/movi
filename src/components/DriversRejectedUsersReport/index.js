@@ -15,6 +15,7 @@ import Loading from '../Loading';
 import { useSelector } from 'react-redux';
 import { selectAuth } from '../../redux/selectors';
 import { DRIVER } from '../../constants/roles';
+import RejectedIcon from "@material-ui/icons/Report";
 
 function getDateTimeString(date) {
   const _date = new Date(date);
@@ -53,7 +54,7 @@ export default function DriversRejectedUsersReport() {
 
         {/* Page title */}
         <Typography variant="h4">
-          Rechazos
+          <RejectedIcon /> Rechazos
         </Typography>
         <br />
 

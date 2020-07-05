@@ -1,13 +1,14 @@
 import { makeStyles } from "@material-ui/core";
 
 export default makeStyles((theme) => ({
-  menuButton: {
-    marginRight: theme.spacing(2),
+  bar: {
+    justifyContent: 'space-between'
   },
   title: {
     fontWeight: 'bold',
     display: 'flex',
     alignItems: 'center',
+    marginLeft: '-50px'
   },
   titleMenu: {
     marginTop: "20px"

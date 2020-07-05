@@ -13,6 +13,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import { API_URL } from '../../settings';
 import Loading from '../Loading';
+import RouteIcon from "@material-ui/icons/Directions";
 
 /**
  * Administration Routes page component
@@ -59,7 +60,7 @@ export default function AdminRoutesPage() {
 
         {/* Page title */}
         <Typography variant="h4">
-          Rutas
+          <RouteIcon /> Rutas
         </Typography>
         <br />
 

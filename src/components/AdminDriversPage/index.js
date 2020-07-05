@@ -13,7 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import { get } from "axios";
 import { API_URL } from '../../settings';
 import Loading from '../Loading';
-
+import BusIcon from "@material-ui/icons/DirectionsBus";
 /**
  * Administration Drivers page component
  */
@@ -59,7 +59,7 @@ export default function AdminDriversPage() {
 
         {/* Page title */}
         <Typography variant="h4">
-          Conductores
+          <BusIcon /> Conductores
         </Typography>
         <br />
 
