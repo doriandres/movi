@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
-import { Container, Typography } from '@material-ui/core';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Container, Typography, Divider } from '@material-ui/core';
 import { get } from 'axios';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -16,28 +16,22 @@ import { useSelector } from 'react-redux';
 import { selectAuth } from '../../redux/selectors';
 import { CUSTOMER } from '../../constants/roles';
 import ExpensesIcon from "@material-ui/icons/InsertChartOutlined";
+import groupBillsByMonthAndYear from '../shared/utils/groupBillsByMonthAndYear';
+import getDateTimeString from '../shared/utils/getDateTimeString';
 
-function getDateTimeString(date) {
-  const _date = new Date(date);
-  return `${_date.toLocaleDateString()} ${_date.toLocaleTimeString()}`;
-}
-
-/**
- * Drivers incomes report page component
- */
 export default function CustomerExpensesPage() {
-  const [incomes, setIncomes] = useState([]);
+  const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const customerInfo = useSelector(selectAuth(CUSTOMER));
-
+  const groups = useMemo(() => groupBillsByMonthAndYear(expenses), [expenses]);
   /**
    * Loads the data
    */
   const loadIncomes = () => {
     setLoading(true);
     get(`${API_URL}api/v1/bills/customer/${customerInfo._id}`, { withCredentials: true })
-      .then((response) => setIncomes(response.data.result))
+      .then((response) => setExpenses(response.data.result))
       .catch(err => setError(err.response?.data?.error || 'Hubo un error de conexión al cargar los gastos'))
       .finally(() => setLoading(false))
   };
@@ -70,29 +64,43 @@ export default function CustomerExpensesPage() {
         */}
         {!loading && !error && (
           // If there are items
-          incomes.length ? (
-            // Display the table
-            <TableContainer component={Paper}>
-              <Table size="small">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Costo</TableCell>
-                    <TableCell>Ruta</TableCell>
-                    <TableCell>Fecha</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {/* Iterate through the items to create table rows */}
-                  {incomes.map((income) => (
-                    <TableRow key={income._id}>
-                      <TableCell>₡ {income.cost}</TableCell>
-                      <TableCell>{income.route.code} - {income.route.name}</TableCell>
-                      <TableCell>{getDateTimeString(income.date)}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+          expenses.length ? (
+            Object.entries(groups).map(([group, expenses], index, list) => (
+              <div key={index}>
+                <Typography variant="h5">
+                  {group}
+                </Typography>
+                <br />
+                <TableContainer component={Paper}>
+                  <Table size="small">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Costo</TableCell>
+                        <TableCell>Ruta</TableCell>
+                        <TableCell>Fecha</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {/* Iterate through the items to create table rows */}
+                      {expenses.map((expense) => (
+                        <TableRow key={expense._id}>
+                          <TableCell>₡ {expense.cost}</TableCell>
+                          <TableCell>{expense.route.code} - {expense.route.name}</TableCell>
+                          <TableCell>{getDateTimeString(expense.date)}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+                {index + 1 !== list.length && (
+                  <>
+                    <br />
+                    <Divider />
+                    <br />
+                  </>
+                )}
+              </div>
+            ))
           )
             :
             // Otherwise show an alert message to let the user know there's no data

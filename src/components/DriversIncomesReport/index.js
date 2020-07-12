@@ -16,11 +16,7 @@ import { useSelector } from 'react-redux';
 import { selectAuth } from '../../redux/selectors';
 import { DRIVER } from '../../constants/roles';
 import IncomesIcon from "@material-ui/icons/InsertChart";
-
-function getDateTimeString(date) {
-  const _date = new Date(date);
-  return `${_date.toLocaleDateString()} ${_date.toLocaleTimeString()}`;
-}
+import getDateTimeString from '../shared/utils/getDateTimeString';
 
 /**
  * Drivers incomes report page component
