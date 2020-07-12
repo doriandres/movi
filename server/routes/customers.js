@@ -2,7 +2,7 @@ const { Router } = require('express');
 const resolve = require("./../api/resolve");
 const ROLES = require("./../constants/roles");
 const { authenticate, deauthenticate } = require("./../security/auth");
-const { validateCustomerCredentials, selectAllCustomers, banCustomerById, insertCustomer, selectCustomerById } = require("./../services/customer");
+const { validateCustomerCredentials, selectAllCustomers, banCustomerById, insertCustomer, selectCustomerById, depositByCustomerId } = require("./../services/customer");
 const { authorize } = require("./../security/auth");
 
 const router = Router();
@@ -29,6 +29,10 @@ router.post("/sign-in", (req, res) => {
   });
 });
 
+/**
+ * POST
+ * /api/v1/customers/sign-up
+ */
 router.post("/sign-up", (req, res) => {
   const customerData = req.body;
   insertCustomer(customerData, (error, customer) => {
@@ -46,8 +50,6 @@ router.post("/sign-up", (req, res) => {
     resolve(req, res)(error, session);
   });
 });
-
-
 
 /**
  * POST
@@ -71,12 +73,18 @@ router.get("/all", authorize(ROLES.ADMIN), (req, res) => {
 /**
  * PUT
  * /api/v1/customers/ban/<customer_id>
+ * AUTH [ADMIN]
  */
-router.put("/ban/:id", (req, res) => {
+router.put("/ban/:id", authorize(ROLES.ADMIN), (req, res) => {
   const { id } = req.params;
   banCustomerById(id, resolve(req, res));
 });
 
+/**
+ * GET
+ * /api/v1/customers/balance/<customer_id>
+ * AUTH [CUSTOMER]
+ */
 router.get("/balance/:id", authorize(ROLES.CUSTOMER), (req, res) => {
   const { id } = req.params;
 
@@ -88,5 +96,18 @@ router.get("/balance/:id", authorize(ROLES.CUSTOMER), (req, res) => {
   selectCustomerById(id, (err, customer) => resolve(req, res)(err, customer && customer.balance));
 });
 
+/**
+ * PUT
+ * /api/v1/customers/deposit
+ * AUTH [CUSTOMER]
+ */
+router.put("/deposit", authorize(ROLES.CUSTOMER), (req, res) => {
+  const { customer, amount } = req.body;
+  if (customer !== req.session._id) {
+    res.status(401);
+    return res.end();
+  }
+  depositByCustomerId(customer, amount, resolve(req, res));
+});
 
 module.exports = router;

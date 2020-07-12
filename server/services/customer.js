@@ -109,11 +109,32 @@ function banCustomerById(id, callback) {
   });
 }
 
+/**
+ * Increases customer balance
+ * @param {String} id Customer ID
+ * @param {Number} amount Amount to deposit
+ * @param {(error: Error, result: Boolean) => void} callback Callback
+ */
+function depositByCustomerId(id, amount, callback) {
+  selectCustomerById(id, (err, customer) => {
+    if (err) {
+      return callback(err);
+    }
+    Customer.updateOne({ _id: id }, { $set: { balance: customer.balance + amount } }, error => {
+      if (error) {
+        return callback(exception(error));
+      }
+      return callback(null, true);
+    });
+  });
+}
+
 module.exports = {
   validateCustomerCredentials,
   insertCustomer,
   selectAllCustomers,
   selectCustomerByCode,
   banCustomerById,
-  selectCustomerById
+  selectCustomerById,
+  depositByCustomerId
 };
