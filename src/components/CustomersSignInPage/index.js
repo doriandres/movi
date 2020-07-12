@@ -12,17 +12,19 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import useStyles from "../shared/styles/forms";
 import { API_URL } from '../../settings';
 import { selectAuth } from '../../redux/selectors';
-import { DRIVER } from '../../constants/roles';
+import { CUSTOMER } from '../../constants/roles';
 import { signIn } from '../../redux/actions';
-import { Redirect } from 'react-router-dom';
-import { DRIVERS_LANDING } from '../../locations';
+import Link from '@material-ui/core/Link';
+import { Redirect, Link as RouterLink } from 'react-router-dom';
+import { CUSTOMERS_LANDING, CUSTOMERS_SIGN_UP } from '../../locations';
+import clsx from 'clsx';
 
-export default function DriverSignInPage() {
+export default function CustomersSignInPage() {
   const dispatch = useDispatch();
   const classes = useStyles();
 
   // Retrieve session
-  const auth = useSelector(selectAuth(DRIVER));
+  const auth = useSelector(selectAuth(CUSTOMER));
 
   // Form manager
   const form = useForm();
@@ -36,8 +38,8 @@ export default function DriverSignInPage() {
   };
 
   // Form submission success handler
-  const onSuccess = (driver) => {
-    dispatch(signIn(DRIVER, driver));
+  const onSuccess = (customer) => {
+    dispatch(signIn(CUSTOMER, customer));
   };
 
   // Form submission fail handler
@@ -49,14 +51,14 @@ export default function DriverSignInPage() {
   // Form submit event handler
   const onSubmit = (credentials) => {
     setLoading(true);
-    post(`${API_URL}api/v1/bus-drivers/sign-in`, credentials, { withCredentials: true })
+    post(`${API_URL}api/v1/customers/sign-in`, credentials, { withCredentials: true })
       .then((response) => onSuccess(response.data.result))
       .catch(error => onFail(error.response?.data?.error || 'Hubo un error de conexión'));
   };
 
   // If there's a session redirect to the admin landing page
   if (!!auth) {
-    return <Redirect to={DRIVERS_LANDING()} />
+    return <Redirect to={CUSTOMERS_LANDING()} />
   }
 
   // Otherwise show the component
@@ -71,7 +73,7 @@ export default function DriverSignInPage() {
             <Paper className={classes.padding}>
               {/* Form title */}
               <Typography className={classes.noMarginTop} variant="h5">
-                Conductores | Iniciar Sesión
+                Clientes | Iniciar Sesión
               </Typography>
               <form
                 className={classes.marginTop}
@@ -81,27 +83,18 @@ export default function DriverSignInPage() {
                 {/* Name field */}
                 <div>
                   <TextField
-                    label="Cédula"
-                    name="citizenId"
-                    autoComplete="cedula"
+                    label="Correo Electrónico"
+                    name="email"
                     inputRef={form.register({
-                      required: "Debe insertar una cédula",
-                      validate(val) {
-                        const number = parseFloat(val);
-                        if (
-                          isNaN(val) ||  // must be a number
-                          number <= 0 || // can't be 0 or negativa
-                          number % 1 !== 0 || // can't have decimals
-                          String(number).length < 9 || // can't have less than 9 chars
-                          String(number).length > 11 // can't have more than 11 chars                      
-                        ) {
-                          return "Debe insertar una cédula válida";
-                        }
+                      required: "Debe insertar un correo electrónico",
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                        message: "Debe insertar un correo electrónico válido"
                       }
                     })}
                     variant="outlined"
-                    error={!!form.errors.citizenId}
-                    helperText={form.errors.citizenId?.message}
+                    error={!!form.errors.email}
+                    helperText={form.errors.email?.message}
                     fullWidth
                   />
                 </div>
@@ -131,6 +124,11 @@ export default function DriverSignInPage() {
                     fullWidth>
                     {loading ? "Verificando" : "Iniciar Sesión"}
                   </Button>
+                </div>
+                <div className={clsx(classes.marginTop, classes.center)}>
+                  <Typography variant="body1">
+                    ¿No tiene una cuenta? <Link component={RouterLink} to={CUSTOMERS_SIGN_UP()}>Regístrese aquí</Link>
+                  </Typography>
                 </div>
               </form>
             </Paper>

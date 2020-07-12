@@ -2,7 +2,7 @@ const { Router } = require('express');
 const resolve = require("./../api/resolve");
 const ROLES = require("./../constants/roles");
 const { authenticate, deauthenticate } = require("./../security/auth");
-const { validateCustomerCredentials, selectAllCustomers, banCustomerById } = require("./../services/customer");
+const { validateCustomerCredentials, selectAllCustomers, banCustomerById, insertCustomer } = require("./../services/customer");
 const { authorize } = require("./../security/auth");
 
 const router = Router();
@@ -13,13 +13,40 @@ const router = Router();
  */
 router.post("/sign-in", (req, res) => {
   const credentials = req.body;
-  validateCustomerCredentials(credentials, (error, user) => {
+  validateCustomerCredentials(credentials, (error, customer) => {
+    let session = null;
     if (!error) {
-      authenticate(res, ROLES.CUSTOMER, user);
+      session = {
+        _id: customer._id,
+        email: customer.email,
+        code: customer.code,
+        name: customer.name,
+        lastName: customer.lastName,
+      };
+      authenticate(res, ROLES.CUSTOMER, session);
     }
-    resolve(req, res)(error, user);
+    resolve(req, res)(error, session);
   });
 });
+
+router.post("/sign-up", (req, res) => {
+  const customerData = req.body;
+  insertCustomer(customerData, (error, customer) => {
+    let session = null;
+    if (!error) {
+      session = {
+        _id: customer._id,
+        email: customer.email,
+        code: customer.code,
+        name: customer.name,
+        lastName: customer.lastName,
+      };
+      authenticate(res, ROLES.CUSTOMER, session);
+    }
+    resolve(req, res)(error, session);
+  });
+});
+
 
 
 /**

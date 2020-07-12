@@ -7,7 +7,7 @@ import { List, ListItem, IconButton, Container, Button, ListItemIcon, ListItemTe
 import Drawer from '@material-ui/core/Drawer';
 import MoviIcon from "@material-ui/icons/DirectionsBusOutlined";
 import { Link } from 'react-router-dom';
-import { ADMIN_SIGN_IN, ADMIN_DRIVERS, ADMIN_LANDING, ADMIN_ROUTES, ADMIN_USERS, DRIVERS_LANDING, DRIVERS_SIGN_IN, DRIVERS_CHECKOUT, DRIVERS_INCOMES, DRIVERS_REJECTED } from '../../locations';
+import { ADMIN_SIGN_IN, ADMIN_DRIVERS, ADMIN_LANDING, ADMIN_ROUTES, ADMIN_USERS, DRIVERS_LANDING, DRIVERS_SIGN_IN, DRIVERS_CHECKOUT, DRIVERS_INCOMES, DRIVERS_REJECTED, CUSTOMERS_SIGN_IN, CUSTOMERS_LANDING, CUSTOMERS_SIGN_UP } from '../../locations';
 import clsx from 'clsx';
 import MenuIcon from '@material-ui/icons/Menu';
 import Dialog from '@material-ui/core/Dialog';
@@ -18,7 +18,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAuth } from '../../redux/selectors';
-import { ADMIN, DRIVER } from '../../constants/roles';
+import { ADMIN, DRIVER, CUSTOMER } from '../../constants/roles';
 import { signOut } from '../../redux/actions';
 import { post } from 'axios';
 import { API_URL } from '../../settings';
@@ -31,19 +31,34 @@ import SignInIcon from "@material-ui/icons/OpenInNew";
 import BusIcon from "@material-ui/icons/DirectionsBus";
 import RouteIcon from "@material-ui/icons/Directions";
 import UserIcon from "@material-ui/icons/SupervisorAccount";
+import SignUpIcon from "@material-ui/icons/PersonAdd";
 
 export default function NavigationBar() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const customerAuth = useSelector(selectAuth(CUSTOMER));
   const adminAuth = useSelector(selectAuth(ADMIN));
   const driverAuth = useSelector(selectAuth(DRIVER));
 
   const [error, setError] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
+  const [isCustomerSigningOut, setIsCustomerSigningOut] = useState(false);
   const [isAdminSigningOut, setIsAdminSigningOut] = useState(false);
   const [isDriverSigningOut, setIsDriverSigningOut] = useState(false);
 
   const cleanError = () => setError(null);
+
+  const onCustomerSignOutClick = (event) => {
+    event.stopPropagation();
+    setIsCustomerSigningOut(true);
+    post(`${API_URL}api/v1/customers/sign-out`, null, { withCredentials: true })
+      .then(() => {
+        dispatch(signOut([CUSTOMER]));
+        setShowMenu(false);
+      })
+      .catch(error => setError(error.response?.data?.error || 'Hubo un error de conexión'))
+      .finally(() => setIsCustomerSigningOut(false));
+  };
 
   const onAdminSignOutClick = (event) => {
     event.stopPropagation();
@@ -91,6 +106,46 @@ export default function NavigationBar() {
               <MoviIcon /> Movi
             </Typography>
           </Container>
+          <List
+            subheader={
+              <ListSubheader component="div">
+                Clientes
+              </ListSubheader>
+            }
+          >
+            {!customerAuth ?
+              <>
+                <ListItem button component={Link} to={CUSTOMERS_SIGN_IN()} color="inherit">
+                  <ListItemIcon>
+                    <SignInIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Iniciar Sesión" />
+                </ListItem>
+                <ListItem button component={Link} to={CUSTOMERS_SIGN_UP()} color="inherit">
+                  <ListItemIcon>
+                    <SignUpIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Registrar cuenta" />
+                </ListItem>
+              </>
+              :
+              <>
+                <ListItem button component={Link} to={CUSTOMERS_LANDING()} color="inherit">
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Inicio" />
+                </ListItem>
+                <ListItem button onClick={onCustomerSignOutClick} disabled={isCustomerSigningOut} color="inherit">
+                  <ListItemIcon>
+                    <SignOutIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Cerrar Sesión" />
+                </ListItem>
+              </>
+            }
+          </List>
+
           <List
             subheader={
               <ListSubheader component="div">

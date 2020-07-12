@@ -1,4 +1,4 @@
-export const HOME_PAGE = () => '/';
+export const CUSTOMERS_LANDING = () => '/';
 export const NOT_FOUND = () => '/404';
 export const ADMIN_SIGN_IN = () => '/admin/iniciar-sesion';
 export const SIGN_IN = () => '/iniciar-sesion';
@@ -11,3 +11,5 @@ export const DRIVERS_SIGN_IN = () => '/conductores/iniciar-sesion';
 export const DRIVERS_CHECKOUT = () => '/conductores/cobro';
 export const DRIVERS_INCOMES = () => '/conductores/ingresos';
 export const DRIVERS_REJECTED = () => '/conductores/rechazos';
+export const CUSTOMERS_SIGN_IN = () => '/iniciar-sesion';
+export const CUSTOMERS_SIGN_UP = () => '/registro';

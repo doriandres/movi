@@ -36,7 +36,7 @@ function validateCustomerCredentials(data, callback) {
  * @param {(error: Error|null, customer: Object) => void} callback callback
  */
 function insertCustomer(data, callback) {
-  const customer = new Customer({ ...data, status: 'active', code: new Date().getTime().toString(36) });
+  const customer = new Customer({ ...data, status: 'active', balance: 0, code: new Date().getTime().toString(36) });
   customer.save()
     .then(result => callback(null, result))
     .catch(error => {
