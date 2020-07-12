@@ -29,7 +29,7 @@ export default function AdminLandingPage() {
                   </Typography>
                   <br />
                   <Grid container spacing={1}>
-                    <Grid item sm={12} md={4} >
+                    <Grid item xs={12} md={4} >
                       <Button
                         type="submit"
                         variant="contained"
@@ -42,7 +42,7 @@ export default function AdminLandingPage() {
                         Conductores
                       </Button>
                     </Grid>
-                    <Grid item sm={12} md={4} >
+                    <Grid item xs={12} md={4} >
                       <Button
                         type="submit"
                         variant="contained"
@@ -54,7 +54,7 @@ export default function AdminLandingPage() {
                         Rutas
                       </Button>
                     </Grid>
-                    <Grid item sm={12} md={4} >
+                    <Grid item xs={12} md={4} >
                       <Button
                         type="submit"
                         variant="contained"

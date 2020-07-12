@@ -27,11 +27,15 @@ import MoneyIcon from "@material-ui/icons/MonetizationOn";
 import IncomesIcon from "@material-ui/icons/InsertChart";
 import RejectedIcon from "@material-ui/icons/Report";
 import SignOutIcon from "@material-ui/icons/ExitToApp";
-import SignInIcon from "@material-ui/icons/OpenInNew";
+import SignInIcon from "@material-ui/icons/Person";
 import BusIcon from "@material-ui/icons/DirectionsBus";
 import RouteIcon from "@material-ui/icons/Directions";
 import UserIcon from "@material-ui/icons/SupervisorAccount";
 import SignUpIcon from "@material-ui/icons/PersonAdd";
+import BalanceIcon from "@material-ui/icons/AccountBalanceWallet";
+import DepositIcon from "@material-ui/icons/Payment";
+import ExpensesIcon from "@material-ui/icons/InsertChartOutlined";
+import TripsIcon from "@material-ui/icons/AirportShuttle";
 
 export default function NavigationBar() {
   const classes = useStyles();
@@ -136,6 +140,35 @@ export default function NavigationBar() {
                   </ListItemIcon>
                   <ListItemText primary="Inicio" />
                 </ListItem>
+
+                <ListItem button component={Link} to={CUSTOMERS_LANDING()} color="inherit">
+                  <ListItemIcon>
+                    <BalanceIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Balance" />
+                </ListItem>
+
+                <ListItem button component={Link} to={CUSTOMERS_LANDING()} color="inherit">
+                  <ListItemIcon>
+                    <DepositIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Depositar" />
+                </ListItem>
+
+                <ListItem button component={Link} to={CUSTOMERS_LANDING()} color="inherit">
+                  <ListItemIcon>
+                    <ExpensesIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Gastos" />
+                </ListItem>
+
+                <ListItem button component={Link} to={CUSTOMERS_LANDING()} color="inherit">
+                  <ListItemIcon>
+                    <TripsIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Viajes" />
+                </ListItem>
+
                 <ListItem button onClick={onCustomerSignOutClick} disabled={isCustomerSigningOut} color="inherit">
                   <ListItemIcon>
                     <SignOutIcon />

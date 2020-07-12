@@ -13,3 +13,7 @@ export const DRIVERS_INCOMES = () => '/conductores/ingresos';
 export const DRIVERS_REJECTED = () => '/conductores/rechazos';
 export const CUSTOMERS_SIGN_IN = () => '/iniciar-sesion';
 export const CUSTOMERS_SIGN_UP = () => '/registro';
+export const CUSTOMERS_BALANCE = () => '/balance';
+export const CUSTOMERS_DEPOSIT = () => '/depositar';
+export const CUSTOMERS_EXPENSES = () => '/gastos';
+export const CUSTOMERS_TRIPS = () => '/viajes';

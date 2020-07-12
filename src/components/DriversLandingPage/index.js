@@ -37,7 +37,7 @@ export default function DriverLandingPage() {
                   </Typography>
                   <br />
                   <Grid container spacing={1}>
-                    <Grid item sm={12} md={4} >
+                    <Grid item xs={12} md={4} >
                       <Button
                         type="submit"
                         variant="contained"
@@ -50,7 +50,7 @@ export default function DriverLandingPage() {
                         Cobro
                       </Button>
                     </Grid>
-                    <Grid item sm={12} md={4} >
+                    <Grid item xs={12} md={4} >
                       <Button
                         type="submit"
                         variant="contained"
@@ -63,7 +63,7 @@ export default function DriverLandingPage() {
                         Ingresos
                       </Button>
                     </Grid>
-                    <Grid item sm={12} md={4} >
+                    <Grid item xs={12} md={4} >
                       <Button
                         type="submit"
                         variant="contained"

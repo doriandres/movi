@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { NOT_FOUND, ADMIN_SIGN_IN, ADMIN_LANDING, ADMIN_ROUTES, ADMIN_DRIVERS, ADMIN_USERS, DRIVERS_SIGN_IN, DRIVERS_LANDING, DRIVERS_CHECKOUT, DRIVERS_INCOMES, DRIVERS_REJECTED, CUSTOMERS_LANDING, CUSTOMERS_SIGN_IN, CUSTOMERS_SIGN_UP } from '../../locations';
+import { NOT_FOUND, ADMIN_SIGN_IN, ADMIN_LANDING, ADMIN_ROUTES, ADMIN_DRIVERS, ADMIN_USERS, DRIVERS_SIGN_IN, DRIVERS_LANDING, DRIVERS_CHECKOUT, DRIVERS_INCOMES, DRIVERS_REJECTED, CUSTOMERS_LANDING, CUSTOMERS_SIGN_IN, CUSTOMERS_SIGN_UP, CUSTOMERS_BALANCE, CUSTOMERS_DEPOSIT, CUSTOMERS_EXPENSES, CUSTOMERS_TRIPS } from '../../locations';
 import Loading from "../Loading";
 import PrivateRoute from "./components/PrivateRoute";
 import { ADMIN, DRIVER, CUSTOMER } from "../../constants/roles";
@@ -19,6 +19,10 @@ const DriversRejectedUsersReport = lazy(() => import("../DriversRejectedUsersRep
 const CustomersSignInPage = lazy(() => import("../CustomersSignInPage"));
 const CustomerLandingPage = lazy(() => import("../CustomerLandingPage"));
 const CustomersSignUp = lazy(() => import("../CustomersSignUp"));
+const CustomerMyBalancePage = lazy(() => import("../CustomerMyBalancePage"));
+const CustomerDepositPage = lazy(() => import("../CustomerDepositPage"));
+const CustomerExpensesPage = lazy(() => import("../CustomerExpensesPage"));
+const CustomersTripsPage = lazy(() => import("../CustomersTripsPage"));
 
 export default function ClientRouter() {
   return (
@@ -37,6 +41,10 @@ export default function ClientRouter() {
         <PrivateRoute exact path={DRIVERS_INCOMES()} component={DriversIncomesReport} redirect={DRIVERS_SIGN_IN()} roles={[DRIVER]} />
         <PrivateRoute exact path={DRIVERS_REJECTED()} component={DriversRejectedUsersReport} redirect={DRIVERS_SIGN_IN()} roles={[DRIVER]} />
         <PrivateRoute exact path={CUSTOMERS_LANDING()} component={CustomerLandingPage} redirect={CUSTOMERS_SIGN_IN()} roles={[CUSTOMER]} />
+        <PrivateRoute exact path={CUSTOMERS_BALANCE()} component={CustomerMyBalancePage} redirect={CUSTOMERS_SIGN_IN()} roles={[CUSTOMER]} />
+        <PrivateRoute exact path={CUSTOMERS_DEPOSIT()} component={CustomerDepositPage} redirect={CUSTOMERS_SIGN_IN()} roles={[CUSTOMER]} />
+        <PrivateRoute exact path={CUSTOMERS_EXPENSES()} component={CustomerExpensesPage} redirect={CUSTOMERS_SIGN_IN()} roles={[CUSTOMER]} />
+        <PrivateRoute exact path={CUSTOMERS_TRIPS()} component={CustomersTripsPage} redirect={CUSTOMERS_SIGN_IN()} roles={[CUSTOMER]} />
         <Route exact path={NOT_FOUND()} component={NotFoundPage} />
         <Route path="*">
           <Redirect to={NOT_FOUND()} />

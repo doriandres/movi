@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button, Paper, Grid, Typography, Container } from '@material-ui/core';
-import MoneyIcon from "@material-ui/icons/MonetizationOn";
-import IncomesIcon from "@material-ui/icons/InsertChart";
-import RejectedIcon from "@material-ui/icons/Report";
+import BalanceIcon from "@material-ui/icons/AccountBalanceWallet";
+import DepositIcon from "@material-ui/icons/Payment";
+import ExpensesIcon from "@material-ui/icons/InsertChartOutlined";
+import TripsIcon from "@material-ui/icons/AirportShuttle";
 import useStyles from "../shared/styles/forms";
-import { DRIVERS_CHECKOUT, DRIVERS_INCOMES, DRIVERS_REJECTED } from '../../locations';
+import { CUSTOMERS_BALANCE, CUSTOMERS_DEPOSIT, CUSTOMERS_EXPENSES, CUSTOMERS_TRIPS } from '../../locations';
 import { Link } from 'react-router-dom';
 import MoviIcon from "@material-ui/icons/DirectionsBusOutlined";
 import { useSelector } from 'react-redux';
@@ -34,43 +35,56 @@ export default function CustomerLandingPage() {
                   </Typography>
                   <br />
                   <Grid container spacing={1}>
-                    <Grid item sm={12} md={4} >
+                    <Grid item xs={12} md={6} >
                       <Button
                         type="submit"
                         variant="contained"
                         color="primary"
                         size="large"
-                        startIcon={<MoneyIcon />}
+                        startIcon={<BalanceIcon />}
                         component={Link}
-                        to={DRIVERS_CHECKOUT()}
+                        to={CUSTOMERS_BALANCE()}
                         fullWidth>
-                        Cobro
+                        Balance
                       </Button>
                     </Grid>
-                    <Grid item sm={12} md={4} >
+                    <Grid item xs={12} md={6} >
                       <Button
                         type="submit"
                         variant="contained"
                         color="primary"
                         size="large"
-                        startIcon={<IncomesIcon />}
+                        startIcon={<DepositIcon />}
                         component={Link}
-                        to={DRIVERS_INCOMES()}
+                        to={CUSTOMERS_DEPOSIT()}
                         fullWidth>
-                        Ingresos
+                        Depositar
                       </Button>
                     </Grid>
-                    <Grid item sm={12} md={4} >
+                    <Grid item xs={12} md={6} >
                       <Button
                         type="submit"
                         variant="contained"
                         color="primary"
                         size="large"
-                        startIcon={<RejectedIcon />}
+                        startIcon={<ExpensesIcon />}
                         component={Link}
-                        to={DRIVERS_REJECTED()}
+                        to={CUSTOMERS_EXPENSES()}
                         fullWidth>
-                        Rechazos
+                        Gastos
+                      </Button>
+                    </Grid>
+                    <Grid item xs={12} md={6} >
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        startIcon={<TripsIcon />}
+                        component={Link}
+                        to={CUSTOMERS_TRIPS()}
+                        fullWidth>
+                        Viajes
                       </Button>
                     </Grid>
                   </Grid>
