@@ -68,7 +68,7 @@ export default function DriversUsersCheckout() {
                 {/* Form title */}
                 <Typography className={classes.noMarginTop} variant="h5">
                   <MoneyIcon /> Cobro
-              </Typography>
+                </Typography>
                 <Typography className={classes.noMarginTop} variant="h6">
                   {driverInfo.route.code} - {driverInfo.route.name} - ₡{driverInfo.route.cost}
                 </Typography>

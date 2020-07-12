@@ -79,6 +79,23 @@ function selectCustomerByCode(code, callback) {
 }
 
 /**
+ * Select a customer by its id
+ * @param {String} id Customer code
+ * @param {(error: Error|null, customer: Object) => void} callback callback
+ */
+function selectCustomerById(id, callback) {
+  Customer.findById(id, (error, customer) => {
+    if (error) {
+      return callback(exception(error));
+    }
+    if (!customer) {
+      return callback(exception("El usuario no existe o no está activo", 401));
+    }
+    callback(null, customer);
+  });
+}
+
+/**
  * Bans a customer
  * @param {String} id Customer ID
  * @param {(error: Error, result: Boolean) => void} callback Callback
@@ -97,5 +114,6 @@ module.exports = {
   insertCustomer,
   selectAllCustomers,
   selectCustomerByCode,
-  banCustomerById
+  banCustomerById,
+  selectCustomerById
 };
