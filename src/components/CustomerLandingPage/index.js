@@ -24,15 +24,17 @@ export default function CustomerLandingPage() {
               <Grid item sm={12} md={2} />
               <Grid item sm={12} md={8}>
                 <Paper className={classes.padding}>
-                  <Typography className={classes.noMarginTop} variant="h4">
-                    <MoviIcon />Movi - Monedero Digital
-                  </Typography>
-                  <Typography className={classes.marginTop} variant="h5">
-                    <b>{customerInfo.code}</b> - {customerInfo.name} {customerInfo.lastName}
-                  </Typography>
-                  <Typography className={classes.marginTop} variant="subtitle1">
-                    Bienvenido a la página de clientes de Movi
-                  </Typography>
+                  <div className={classes.center}>
+                    <Typography className={classes.noMarginTop} variant="h4">
+                      <MoviIcon />Movi - Monedero Digital
+                    </Typography>
+                    <Typography className={classes.marginTop} variant="h5">
+                      <b>{customerInfo.code}</b> - {customerInfo.name} {customerInfo.lastName}
+                    </Typography>
+                    <Typography className={classes.marginTop} variant="subtitle1">
+                      Bienvenido a la página de clientes
+                    </Typography>
+                  </div>
                   <br />
                   <Grid container spacing={1}>
                     <Grid item xs={12} md={6} >

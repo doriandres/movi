@@ -21,12 +21,14 @@ export default function AdminLandingPage() {
               <Grid item sm={12} md={2} />
               <Grid item sm={12} md={8}>
                 <Paper className={classes.padding}>
-                  <Typography className={classes.noMarginTop} variant="h4">
-                    <MoviIcon />Movi - Monedero Digital
-                  </Typography>
-                  <Typography className={classes.marginTop} variant="subtitle1">
-                    Bienvenido a la página administrativa de Movi
-                  </Typography>
+                  <div className={classes.center}>
+                    <Typography className={classes.noMarginTop} variant="h4">
+                      <MoviIcon />Movi - Monedero Digital
+                    </Typography>
+                    <Typography className={classes.marginTop} variant="subtitle1">
+                      Bienvenido a la página administrativa de Movi
+                    </Typography>
+                  </div>
                   <br />
                   <Grid container spacing={1}>
                     <Grid item xs={12} md={4} >

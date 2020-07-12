@@ -23,18 +23,20 @@ export default function DriverLandingPage() {
               <Grid item sm={12} md={2} />
               <Grid item sm={12} md={8}>
                 <Paper className={classes.padding}>
-                  <Typography className={classes.noMarginTop} variant="h4">
-                    <MoviIcon />Movi - Monedero Digital
-                  </Typography>
-                  <Typography className={classes.marginTop} variant="h5">
-                    {driverInfo.name} {driverInfo.lastName}
-                  </Typography>
-                  <Typography className={classes.noMarginTop} variant="h6">
-                    {driverInfo.route.code} - {driverInfo.route.name} - ₡{driverInfo.route.cost}
-                  </Typography>
-                  <Typography className={classes.marginTop} variant="subtitle1">
-                    Bienvenido a la página para conductores de Movi
-                  </Typography>
+                  <div className={classes.center}>
+                    <Typography className={classes.noMarginTop} variant="h4">
+                      <MoviIcon />Movi - Monedero Digital
+                    </Typography>
+                    <Typography className={classes.marginTop} variant="h5">
+                      {driverInfo.name} {driverInfo.lastName}
+                    </Typography>
+                    <Typography className={classes.noMarginTop} variant="h6">
+                      {driverInfo.route.code} - {driverInfo.route.name} - ₡{driverInfo.route.cost}
+                    </Typography>
+                    <Typography className={classes.marginTop} variant="subtitle1">
+                      Bienvenido a la página para conductores de Movi
+                    </Typography>
+                  </div>
                   <br />
                   <Grid container spacing={1}>
                     <Grid item xs={12} md={4} >
