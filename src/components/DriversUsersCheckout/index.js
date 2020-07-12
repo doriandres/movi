@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { post } from "axios";
-import { Button, Paper, Grid, Typography } from '@material-ui/core';
+import { Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -59,53 +59,54 @@ export default function DriversUsersCheckout() {
   return (
     <>
       <div className={classes.root}>
-
-        {/* These grids are to center the component in medium and large screen size devices */}
-        <Grid container>
-          <Grid item xs={12} md={4} />
-          <Grid item xs={12} md={4}>
-            <Paper className={classes.padding}>
-              {/* Form title */}
-              <Typography className={classes.noMarginTop} variant="h5">
-                <MoneyIcon /> Cobro
+        <Container>
+          {/* These grids are to center the component in medium and large screen size devices */}
+          <Grid container>
+            <Grid item xs={12} md={4} />
+            <Grid item xs={12} md={4}>
+              <Paper className={classes.padding}>
+                {/* Form title */}
+                <Typography className={classes.noMarginTop} variant="h5">
+                  <MoneyIcon /> Cobro
               </Typography>
-              <Typography className={classes.noMarginTop} variant="h6">
-                {driverInfo.route.code} - {driverInfo.route.name} - ₡{driverInfo.route.cost}
-              </Typography>
-              <form
-                className={classes.marginTop}
-                onSubmit={form.handleSubmit(onSubmit)}
-                autoComplete="off">
+                <Typography className={classes.noMarginTop} variant="h6">
+                  {driverInfo.route.code} - {driverInfo.route.name} - ₡{driverInfo.route.cost}
+                </Typography>
+                <form
+                  className={classes.marginTop}
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  autoComplete="off">
 
-                {/* Name field */}
-                <div>
-                  <TextField
-                    label="Código del usuario"
-                    name="code"
-                    inputRef={form.register({ required: "Debe insertar un código" })}
-                    variant="outlined"
-                    error={!!form.errors.code}
-                    helperText={form.errors.code?.message}
-                    fullWidth
-                  />
-                </div>
+                  {/* Name field */}
+                  <div>
+                    <TextField
+                      label="Código del usuario"
+                      name="code"
+                      inputRef={form.register({ required: "Debe insertar un código" })}
+                      variant="outlined"
+                      error={!!form.errors.code}
+                      helperText={form.errors.code?.message}
+                      fullWidth
+                    />
+                  </div>
 
-                {/* Submit button */}
-                <div className={classes.marginTop}>
-                  <Button
-                    type="submit"
-                    disabled={loading}
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    fullWidth>
-                    {loading ? "Verificando" : "Cobrar"}
-                  </Button>
-                </div>
-              </form>
-            </Paper>
+                  {/* Submit button */}
+                  <div className={classes.marginTop}>
+                    <Button
+                      type="submit"
+                      disabled={loading}
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      fullWidth>
+                      {loading ? "Verificando" : "Cobrar"}
+                    </Button>
+                  </div>
+                </form>
+              </Paper>
+            </Grid>
           </Grid>
-        </Grid>
+        </Container>
       </div>
 
       {/* Error modal */}

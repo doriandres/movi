@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { post } from "axios";
-import { Button, Paper, Grid, Typography } from '@material-ui/core';
+import { Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -18,6 +18,7 @@ import Link from '@material-ui/core/Link';
 import { Redirect, Link as RouterLink } from 'react-router-dom';
 import { CUSTOMERS_LANDING, CUSTOMERS_SIGN_UP } from '../../locations';
 import clsx from 'clsx';
+import SignInIcon from "@material-ui/icons/Person";
 
 export default function CustomersSignInPage() {
   const dispatch = useDispatch();
@@ -65,75 +66,76 @@ export default function CustomersSignInPage() {
   return (
     <>
       <div className={classes.root}>
+        <Container>
+          {/* These grids are to center the component in medium and large screen size devices */}
+          <Grid container>
+            <Grid item xs={12} md={4} />
+            <Grid item xs={12} md={4}>
+              <Paper className={classes.padding}>
+                {/* Form title */}
+                <Typography className={classes.noMarginTop} variant="h5">
+                  <SignInIcon style={{ marginBottom: '-0.12em' }} /> Iniciar Sesión
+                </Typography>
+                <form
+                  className={classes.marginTop}
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  autoComplete="off">
 
-        {/* These grids are to center the component in medium and large screen size devices */}
-        <Grid container>
-          <Grid item xs={12} md={4} />
-          <Grid item xs={12} md={4}>
-            <Paper className={classes.padding}>
-              {/* Form title */}
-              <Typography className={classes.noMarginTop} variant="h5">
-                Clientes | Iniciar Sesión
-              </Typography>
-              <form
-                className={classes.marginTop}
-                onSubmit={form.handleSubmit(onSubmit)}
-                autoComplete="off">
+                  {/* Name field */}
+                  <div>
+                    <TextField
+                      label="Correo Electrónico"
+                      name="email"
+                      inputRef={form.register({
+                        required: "Debe insertar un correo electrónico",
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                          message: "Debe insertar un correo electrónico válido"
+                        }
+                      })}
+                      variant="outlined"
+                      error={!!form.errors.email}
+                      helperText={form.errors.email?.message}
+                      fullWidth
+                    />
+                  </div>
 
-                {/* Name field */}
-                <div>
-                  <TextField
-                    label="Correo Electrónico"
-                    name="email"
-                    inputRef={form.register({
-                      required: "Debe insertar un correo electrónico",
-                      pattern: {
-                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                        message: "Debe insertar un correo electrónico válido"
-                      }
-                    })}
-                    variant="outlined"
-                    error={!!form.errors.email}
-                    helperText={form.errors.email?.message}
-                    fullWidth
-                  />
-                </div>
+                  {/* Password field */}
+                  <div className={classes.marginTop}>
+                    <TextField
+                      label="Contraseña"
+                      name="password"
+                      type="password"
+                      inputRef={form.register({ required: "Debe insertar una contraseña" })}
+                      variant="outlined"
+                      error={!!form.errors.password}
+                      helperText={form.errors.password?.message}
+                      fullWidth
+                    />
+                  </div>
 
-                {/* Password field */}
-                <div className={classes.marginTop}>
-                  <TextField
-                    label="Contraseña"
-                    name="password"
-                    type="password"
-                    inputRef={form.register({ required: "Debe insertar una contraseña" })}
-                    variant="outlined"
-                    error={!!form.errors.password}
-                    helperText={form.errors.password?.message}
-                    fullWidth
-                  />
-                </div>
-
-                {/* Submit button */}
-                <div className={classes.marginTop}>
-                  <Button
-                    type="submit"
-                    disabled={loading}
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    fullWidth>
-                    {loading ? "Verificando" : "Iniciar Sesión"}
-                  </Button>
-                </div>
-                <div className={clsx(classes.marginTop, classes.center)}>
-                  <Typography variant="body1">
-                    ¿No tiene una cuenta? <Link component={RouterLink} to={CUSTOMERS_SIGN_UP()}>Regístrese aquí</Link>
-                  </Typography>
-                </div>
-              </form>
-            </Paper>
+                  {/* Submit button */}
+                  <div className={classes.marginTop}>
+                    <Button
+                      type="submit"
+                      disabled={loading}
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      fullWidth>
+                      {loading ? "Verificando" : "Iniciar Sesión"}
+                    </Button>
+                  </div>
+                  <div className={clsx(classes.marginTop, classes.center)}>
+                    <Typography variant="body1">
+                      ¿No tiene una cuenta? <Link component={RouterLink} to={CUSTOMERS_SIGN_UP()}>Regístrese aquí</Link>
+                    </Typography>
+                  </div>
+                </form>
+              </Paper>
+            </Grid>
           </Grid>
-        </Grid>
+        </Container>
       </div>
 
       {/* Error modal */}

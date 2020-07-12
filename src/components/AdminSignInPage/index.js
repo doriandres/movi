@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { post } from "axios";
-import { Button, Paper, Grid, Typography } from '@material-ui/core';
+import { Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -16,6 +16,7 @@ import { ADMIN } from '../../constants/roles';
 import { signIn } from '../../redux/actions';
 import { Redirect } from 'react-router-dom';
 import { ADMIN_LANDING } from '../../locations';
+import SignInIcon from "@material-ui/icons/Person";
 
 export default function AdminSignInPage() {
   const dispatch = useDispatch();
@@ -63,64 +64,68 @@ export default function AdminSignInPage() {
   return (
     <>
       <div className={classes.root}>
+        <Container>
+          {/* These grids are to center the component in medium and large screen size devices */}
+          <Grid container>
+            <Grid item xs={12} md={4} />
+            <Grid item xs={12} md={4}>
+              <Paper className={classes.padding}>
+                {/* Form title */}
+                <Typography className={classes.noMarginTop} variant="h5">
+                  <SignInIcon style={{ marginBottom: '-0.12em' }} /> Iniciar Sesión
+                </Typography>
+                <Typography className={classes.noMarginTop} variant="caption">
+                  Inicio de sesión para administradores
+                </Typography>
+                <form
+                  className={classes.marginTop}
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  autoComplete="off">
 
-        {/* These grids are to center the component in medium and large screen size devices */}
-        <Grid container>
-          <Grid item xs={12} md={4} />
-          <Grid item xs={12} md={4}>
-            <Paper className={classes.padding}>
-              {/* Form title */}
-              <Typography className={classes.noMarginTop} variant="h5">
-                Admin | Iniciar Sesión
-              </Typography>
-              <form
-                className={classes.marginTop}
-                onSubmit={form.handleSubmit(onSubmit)}
-                autoComplete="off">
+                  {/* Name field */}
+                  <div>
+                    <TextField
+                      label="Nombre de usuario"
+                      name="username"
+                      inputRef={form.register({ required: "Debe insertar un nombre de usuario" })}
+                      variant="outlined"
+                      error={!!form.errors.username}
+                      helperText={form.errors.username?.message}
+                      fullWidth
+                    />
+                  </div>
 
-                {/* Name field */}
-                <div>
-                  <TextField
-                    label="Nombre de usuario"
-                    name="username"
-                    inputRef={form.register({ required: "Debe insertar un nombre de usuario" })}
-                    variant="outlined"
-                    error={!!form.errors.username}
-                    helperText={form.errors.username?.message}
-                    fullWidth
-                  />
-                </div>
+                  {/* Password field */}
+                  <div className={classes.marginTop}>
+                    <TextField
+                      label="Contraseña"
+                      name="password"
+                      type="password"
+                      inputRef={form.register({ required: "Debe insertar una contraseña" })}
+                      variant="outlined"
+                      error={!!form.errors.password}
+                      helperText={form.errors.password?.message}
+                      fullWidth
+                    />
+                  </div>
 
-                {/* Password field */}
-                <div className={classes.marginTop}>
-                  <TextField
-                    label="Contraseña"
-                    name="password"
-                    type="password"
-                    inputRef={form.register({ required: "Debe insertar una contraseña" })}
-                    variant="outlined"
-                    error={!!form.errors.password}
-                    helperText={form.errors.password?.message}
-                    fullWidth
-                  />
-                </div>
-
-                {/* Submit button */}
-                <div className={classes.marginTop}>
-                  <Button
-                    type="submit"
-                    disabled={loading}
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    fullWidth>
-                    {loading ? "Verificando" : "Iniciar Sesión"}
-                  </Button>
-                </div>
-              </form>
-            </Paper>
+                  {/* Submit button */}
+                  <div className={classes.marginTop}>
+                    <Button
+                      type="submit"
+                      disabled={loading}
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      fullWidth>
+                      {loading ? "Verificando" : "Iniciar Sesión"}
+                    </Button>
+                  </div>
+                </form>
+              </Paper>
+            </Grid>
           </Grid>
-        </Grid>
+        </Container>
       </div>
 
       {/* Error modal */}

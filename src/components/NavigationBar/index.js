@@ -7,7 +7,7 @@ import { List, ListItem, IconButton, Container, Button, ListItemIcon, ListItemTe
 import Drawer from '@material-ui/core/Drawer';
 import MoviIcon from "@material-ui/icons/DirectionsBusOutlined";
 import { Link } from 'react-router-dom';
-import { ADMIN_SIGN_IN, ADMIN_DRIVERS, ADMIN_LANDING, ADMIN_ROUTES, ADMIN_USERS, DRIVERS_LANDING, DRIVERS_SIGN_IN, DRIVERS_CHECKOUT, DRIVERS_INCOMES, DRIVERS_REJECTED, CUSTOMERS_SIGN_IN, CUSTOMERS_LANDING, CUSTOMERS_SIGN_UP } from '../../locations';
+import { ADMIN_SIGN_IN, ADMIN_DRIVERS, ADMIN_LANDING, ADMIN_ROUTES, ADMIN_USERS, DRIVERS_LANDING, DRIVERS_SIGN_IN, DRIVERS_CHECKOUT, DRIVERS_INCOMES, DRIVERS_REJECTED, CUSTOMERS_SIGN_IN, CUSTOMERS_LANDING, CUSTOMERS_SIGN_UP, CUSTOMERS_BALANCE, CUSTOMERS_DEPOSIT, CUSTOMERS_EXPENSES, CUSTOMERS_TRIPS } from '../../locations';
 import clsx from 'clsx';
 import MenuIcon from '@material-ui/icons/Menu';
 import Dialog from '@material-ui/core/Dialog';
@@ -141,28 +141,28 @@ export default function NavigationBar() {
                   <ListItemText primary="Inicio" />
                 </ListItem>
 
-                <ListItem button component={Link} to={CUSTOMERS_LANDING()} color="inherit">
+                <ListItem button component={Link} to={CUSTOMERS_BALANCE()} color="inherit">
                   <ListItemIcon>
                     <BalanceIcon />
                   </ListItemIcon>
                   <ListItemText primary="Balance" />
                 </ListItem>
 
-                <ListItem button component={Link} to={CUSTOMERS_LANDING()} color="inherit">
+                <ListItem button component={Link} to={CUSTOMERS_DEPOSIT()} color="inherit">
                   <ListItemIcon>
                     <DepositIcon />
                   </ListItemIcon>
                   <ListItemText primary="Depositar" />
                 </ListItem>
 
-                <ListItem button component={Link} to={CUSTOMERS_LANDING()} color="inherit">
+                <ListItem button component={Link} to={CUSTOMERS_EXPENSES()} color="inherit">
                   <ListItemIcon>
                     <ExpensesIcon />
                   </ListItemIcon>
                   <ListItemText primary="Gastos" />
                 </ListItem>
 
-                <ListItem button component={Link} to={CUSTOMERS_LANDING()} color="inherit">
+                <ListItem button component={Link} to={CUSTOMERS_TRIPS()} color="inherit">
                   <ListItemIcon>
                     <TripsIcon />
                   </ListItemIcon>
