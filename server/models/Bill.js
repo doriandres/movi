@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const Bill = mongoose.model('Bill', {
-  cost: { type: String, unique: true, required: true },
+  cost: { type: String, required: true },
   route: {
     type: mongoose.Schema.Types.ObjectId, // Foreign Key
     ref: "BusRoute", // References BusRoute 

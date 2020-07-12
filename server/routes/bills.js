@@ -2,7 +2,7 @@ const { Router } = require('express');
 const resolve = require("./../api/resolve");
 const ROLES = require("./../constants/roles");
 const { authorize } = require("./../security/auth");
-const { selectBillsByDriverId, processCheckout } = require('../services/bill');
+const { selectBillsByDriverId, processCheckout, selectBillsByCustomerId } = require('../services/bill');
 
 const router = Router();
 
@@ -14,6 +14,16 @@ const router = Router();
 router.get("/driver/:id", authorize(ROLES.DRIVER), (req, res) => {
   const { id } = req.params;
   selectBillsByDriverId(id, resolve(req, res));
+});
+
+/**
+ * GET
+ * /api/v1/bills/customer/<customer_id>
+ * AUTH [CUSTOMER]
+ */
+router.get("/customer/:id", authorize(ROLES.CUSTOMER), (req, res) => {
+  const { id } = req.params;
+  selectBillsByCustomerId(id, resolve(req, res));
 });
 
 /**

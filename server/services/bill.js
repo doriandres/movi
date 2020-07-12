@@ -39,14 +39,11 @@ function processCheckout(bill, callback) {
         customer.balance -= driver.route.cost;
         // Update the user
         customer.save()
-          .then(() => insertBill({
-            cost: driver.route.cost,
-            customer: customer._id,
-            driver: driver._id,
-            route: driver.route._id
-          },
-            () => callback(null) // All good
-          ))
+          .then(() => {
+            insertBill({ cost: driver.route.cost, customer: customer._id, driver: driver._id, route: driver.route._id }, err => {
+              callback(err, true);
+            });
+          })
           .catch(error => callback(error)) // In case any error happens while making the update
       }
     })
@@ -85,8 +82,29 @@ function selectBillsByDriverId(id, callback) {
     });
 }
 
+/**
+ * Retrieves all bills associated with a customer
+ * @param {String} id Customer id
+ * @param {(error: Error|null, customers: Object[]) => void} callback callback
+ */
+function selectBillsByCustomerId(id, callback) {
+  Bill
+    .find({ customer: id })
+    .populate('route')
+    .populate({ path: 'customer', select: '-password -cardCsv' })
+    .populate({ path: 'driver', select: '-password' })
+    .sort('-date')
+    .exec((error, results) => {
+      if (error) {
+        return callback(exception(error));
+      }
+      return callback(null, results);
+    });
+}
+
 module.exports = {
   insertBill,
   selectBillsByDriverId,
-  processCheckout
-}
+  processCheckout,
+  selectBillsByCustomerId
+};
