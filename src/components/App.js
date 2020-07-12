@@ -5,6 +5,7 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { deepOrange, teal, grey, pink } from "@material-ui/core/colors";
 import NavigationBar from './NavigationBar';
 import { useLocation } from 'react-router-dom';
+import ErrorHandler from './ErrorHandler';
 
 
 function useTheme() {
@@ -30,8 +31,10 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline>
-        <NavigationBar />
-        <ClientRouter />
+        <ErrorHandler>
+          <NavigationBar />
+          <ClientRouter />
+        </ErrorHandler>
       </CssBaseline>
     </ThemeProvider>
   );
