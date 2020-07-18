@@ -27,8 +27,8 @@
 | ----------| ------ | ------
 [Main URL](https://trello.com/c/2bwCGviW/26-main-url)| ![status](https://img.shields.io/static/v1?label=status&message=Done&color=green) |`v1.0.0`
 [Routes - New Route - Verify code is unique](https://trello.com/c/Rqech905/27-routes-new-route-verify-code-is-unique)| ![status](https://img.shields.io/static/v1?label=status&message=Done&color=green) |`v1.0.0`
-[Admin - Rutas - Layout issue](https://trello.com/c/jeYuIzGh/28-admin-rutas-layout-issue)| ![status](https://img.shields.io/static/v1?label=status&message=Done&color=green) |`v1.0.0`
-[Admin - Users - Copy issue](https://trello.com/c/aPHIYf3T/29-admin-users-copy-issue)| ![status](https://img.shields.io/static/v1?label=status&message=Done&color=green) |`v1.0.0`
+[Admin - Rutas - Layout issue](https://trello.com/c/jeYuIzGh/28-admin-rutas-layout-issue)| ![status](https://img.shields.io/static/v1?label=status&message=Done&color=green) |`v1.1.0`
+[Admin - Users - Copy issue](https://trello.com/c/aPHIYf3T/29-admin-users-copy-issue)| ![status](https://img.shields.io/static/v1?label=status&message=Done&color=green) |`v1.1.0`
 ---
 
 
