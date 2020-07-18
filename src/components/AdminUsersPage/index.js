@@ -151,7 +151,7 @@ export default function AdminUsersPage() {
         <DialogTitle>Atención</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            ¿Está seguro que desea deshabilitar esté usuario?
+            ¿Está seguro que desea deshabilitar este usuario?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

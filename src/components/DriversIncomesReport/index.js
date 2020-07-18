@@ -74,6 +74,7 @@ export default function DriversIncomesReport() {
                   <TableRow>
                     <TableCell>Costo</TableCell>
                     <TableCell>Ruta</TableCell>
+                    <TableCell>Usuario</TableCell>
                     <TableCell>Fecha</TableCell>
                   </TableRow>
                 </TableHead>
@@ -83,6 +84,7 @@ export default function DriversIncomesReport() {
                     <TableRow key={income._id}>
                       <TableCell>₡ {income.cost}</TableCell>
                       <TableCell>{income.route.code} - {income.route.name}</TableCell>
+                      <TableCell>{income.customer.name} {income.customer.lastName}</TableCell>
                       <TableCell>{getDateTimeString(income.date)}</TableCell>
                     </TableRow>
                   ))}

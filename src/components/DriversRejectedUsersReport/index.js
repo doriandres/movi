@@ -81,7 +81,7 @@ export default function DriversRejectedUsersReport() {
                   {/* Iterate through the items to create table rows */}
                   {rejections.map((rejection) => (
                     <TableRow key={rejection._id}>
-                      <TableCell>{rejection.customer.code}</TableCell>
+                      <TableCell>{rejection.customer.name} {rejection.customer.lastName}</TableCell>
                       <TableCell>{rejection.route.code} - {rejection.route.name}</TableCell>
                       <TableCell>{getDateTimeString(rejection.date)}</TableCell>
                     </TableRow>
