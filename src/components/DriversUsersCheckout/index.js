@@ -13,13 +13,11 @@ import useStyles from "../shared/styles/forms";
 import { API_URL } from '../../settings';
 import { selectAuth } from '../../redux/selectors';
 import { DRIVER } from '../../constants/roles';
-import { useHistory } from 'react-router-dom';
-import { DRIVERS_LANDING } from '../../locations';
 import MoneyIcon from "@material-ui/icons/MonetizationOn";
 
 export default function DriversUsersCheckout() {
   const classes = useStyles();
-  const history = useHistory();
+
 
   // Retrieve session
   const driverInfo = useSelector(selectAuth(DRIVER));
@@ -38,7 +36,8 @@ export default function DriversUsersCheckout() {
 
   const closeInfo = () => {
     setShowSuccess(false);
-    history.push(DRIVERS_LANDING());
+    setLoading(false);
+    form.reset();
   };
 
   // Form submit event handler
