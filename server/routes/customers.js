@@ -2,7 +2,7 @@ const { Router } = require('express');
 const resolve = require("./../api/resolve");
 const ROLES = require("./../constants/roles");
 const { authenticate, deauthenticate } = require("./../security/auth");
-const { validateCustomerCredentials, selectAllCustomers, banCustomerById, insertCustomer, selectCustomerById, depositByCustomerId } = require("./../services/customer");
+const { validateCustomerCredentials, selectAllCustomers, banCustomerById, insertCustomer, selectCustomerById, depositByCustomerId, selectAllInactiveCustomers, restoreCustomerById } = require("./../services/customer");
 const { authorize } = require("./../security/auth");
 
 const router = Router();
@@ -71,6 +71,15 @@ router.get("/all", authorize(ROLES.ADMIN), (req, res) => {
 });
 
 /**
+ * get
+ * /api/v1/customers/all/inactive
+ * AUTH [ADMIN]
+ */
+router.get("/all/inactive", authorize(ROLES.ADMIN), (req, res) => {
+  selectAllInactiveCustomers(resolve(req, res));
+});
+
+/**
  * PUT
  * /api/v1/customers/ban/<customer_id>
  * AUTH [ADMIN]
@@ -78,6 +87,16 @@ router.get("/all", authorize(ROLES.ADMIN), (req, res) => {
 router.put("/ban/:id", authorize(ROLES.ADMIN), (req, res) => {
   const { id } = req.params;
   banCustomerById(id, resolve(req, res));
+});
+
+/**
+ * PUT
+ * /api/v1/customers/restore/<customer_id>
+ * AUTH [ADMIN]
+ */
+router.put("/restore/:id", authorize(ROLES.ADMIN), (req, res) => {
+  const { id } = req.params;
+  restoreCustomerById(id, resolve(req, res));
 });
 
 /**

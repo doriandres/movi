@@ -62,6 +62,19 @@ function selectAllCustomers(callback) {
 }
 
 /**
+ * Retrieves all inactive customers
+ * @param {(error: Error|null, customers: Object[]) => void} callback callback
+ */
+function selectAllInactiveCustomers(callback) {
+  Customer.find({ status: '-inactive' }, '-password -cardCsv', (error, results) => {
+    if (error) {
+      return callback(exception(error));
+    }
+    return callback(null, results);
+  });
+}
+
+/**
  * Select a customer by its code
  * @param {String} code Customer code
  * @param {(error: Error|null, customer: Object) => void} callback callback
@@ -109,6 +122,21 @@ function banCustomerById(id, callback) {
   });
 }
 
+
+/**
+ * Restore a customer
+ * @param {String} id Customer ID
+ * @param {(error: Error, result: Boolean) => void} callback Callback
+ */
+function restoreCustomerById(id, callback) {
+  Customer.updateOne({ _id: id }, { $set: { status: 'active' } }, error => {
+    if (error) {
+      return callback(exception(error));
+    }
+    return callback(null, true);
+  });
+}
+
 /**
  * Increases customer balance
  * @param {String} id Customer ID
@@ -136,5 +164,7 @@ module.exports = {
   selectCustomerByCode,
   banCustomerById,
   selectCustomerById,
-  depositByCustomerId
+  depositByCustomerId,
+  selectAllInactiveCustomers,
+  restoreCustomerById
 };
