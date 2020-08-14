@@ -66,7 +66,7 @@ function selectAllCustomers(callback) {
  * @param {(error: Error|null, customers: Object[]) => void} callback callback
  */
 function selectAllInactiveCustomers(callback) {
-  Customer.find({ status: '-inactive' }, '-password -cardCsv', (error, results) => {
+  Customer.find({ status: 'inactive' }, '-password -cardCsv', (error, results) => {
     if (error) {
       return callback(exception(error));
     }

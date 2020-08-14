@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { NOT_FOUND, ADMIN_SIGN_IN, ADMIN_LANDING, ADMIN_ROUTES, ADMIN_DRIVERS, ADMIN_USERS, DRIVERS_SIGN_IN, DRIVERS_LANDING, DRIVERS_CHECKOUT, DRIVERS_INCOMES, DRIVERS_REJECTED, CUSTOMERS_LANDING, CUSTOMERS_SIGN_IN, CUSTOMERS_SIGN_UP, CUSTOMERS_BALANCE, CUSTOMERS_DEPOSIT, CUSTOMERS_EXPENSES, CUSTOMERS_TRIPS } from '../../locations';
+import { NOT_FOUND, ADMIN_SIGN_IN, ADMIN_LANDING, ADMIN_ROUTES, ADMIN_DRIVERS, ADMIN_USERS, DRIVERS_SIGN_IN, DRIVERS_LANDING, DRIVERS_CHECKOUT, DRIVERS_INCOMES, DRIVERS_REJECTED, CUSTOMERS_LANDING, CUSTOMERS_SIGN_IN, CUSTOMERS_SIGN_UP, CUSTOMERS_BALANCE, CUSTOMERS_DEPOSIT, CUSTOMERS_EXPENSES, CUSTOMERS_TRIPS, ADMIN_INACTIVE_USERS } from '../../locations';
 import Loading from "../Loading";
 import PrivateRoute from "./components/PrivateRoute";
 import { ADMIN, DRIVER, CUSTOMER } from "../../constants/roles";
@@ -11,6 +11,7 @@ const AdminLandingPage = lazy(() => import("../AdminLandingPage"));
 const AdminRoutesPage = lazy(() => import("../AdminRoutesPage"));
 const AdminDriversPage = lazy(() => import("../AdminDriversPage"));
 const AdminUsersPage = lazy(() => import("../AdminUsersPage"));
+const AdminInactiveUsersPage = lazy(() => import("../AdminInactiveUsersPage"));
 const DriversSignInPage = lazy(() => import("../DriversSignInPage"));
 const DriversLandingPage = lazy(() => import("../DriversLandingPage"));
 const DriversUsersCheckout = lazy(() => import("../DriversUsersCheckout"));
@@ -35,6 +36,7 @@ export default function ClientRouter() {
         <PrivateRoute exact path={ADMIN_LANDING()} component={AdminLandingPage} redirect={ADMIN_SIGN_IN()} roles={[ADMIN]} />
         <PrivateRoute exact path={ADMIN_ROUTES()} component={AdminRoutesPage} redirect={ADMIN_SIGN_IN()} roles={[ADMIN]} />
         <PrivateRoute exact path={ADMIN_USERS()} component={AdminUsersPage} redirect={ADMIN_SIGN_IN()} roles={[ADMIN]} />
+        <PrivateRoute exact path={ADMIN_INACTIVE_USERS()} component={AdminInactiveUsersPage} redirect={ADMIN_SIGN_IN()} roles={[ADMIN]} />
         <PrivateRoute exact path={ADMIN_DRIVERS()} component={AdminDriversPage} redirect={ADMIN_SIGN_IN()} roles={[ADMIN]} />
         <PrivateRoute exact path={DRIVERS_LANDING()} component={DriversLandingPage} redirect={DRIVERS_SIGN_IN()} roles={[DRIVER]} />
         <PrivateRoute exact path={DRIVERS_CHECKOUT()} component={DriversUsersCheckout} redirect={DRIVERS_SIGN_IN()} roles={[DRIVER]} />

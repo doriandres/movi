@@ -7,7 +7,7 @@ import { List, ListItem, IconButton, Container, Button, ListItemIcon, ListItemTe
 import Drawer from '@material-ui/core/Drawer';
 import MoviIcon from "@material-ui/icons/DirectionsBusOutlined";
 import { Link } from 'react-router-dom';
-import { ADMIN_SIGN_IN, ADMIN_DRIVERS, ADMIN_LANDING, ADMIN_ROUTES, ADMIN_USERS, DRIVERS_LANDING, DRIVERS_SIGN_IN, DRIVERS_CHECKOUT, DRIVERS_INCOMES, DRIVERS_REJECTED, CUSTOMERS_SIGN_IN, CUSTOMERS_LANDING, CUSTOMERS_SIGN_UP, CUSTOMERS_BALANCE, CUSTOMERS_DEPOSIT, CUSTOMERS_EXPENSES, CUSTOMERS_TRIPS } from '../../locations';
+import { ADMIN_SIGN_IN, ADMIN_DRIVERS, ADMIN_LANDING, ADMIN_ROUTES, ADMIN_USERS, DRIVERS_LANDING, DRIVERS_SIGN_IN, DRIVERS_CHECKOUT, DRIVERS_INCOMES, DRIVERS_REJECTED, CUSTOMERS_SIGN_IN, CUSTOMERS_LANDING, CUSTOMERS_SIGN_UP, CUSTOMERS_BALANCE, CUSTOMERS_DEPOSIT, CUSTOMERS_EXPENSES, CUSTOMERS_TRIPS, ADMIN_INACTIVE_USERS } from '../../locations';
 import clsx from 'clsx';
 import MenuIcon from '@material-ui/icons/Menu';
 import Dialog from '@material-ui/core/Dialog';
@@ -31,6 +31,7 @@ import SignInIcon from "@material-ui/icons/Person";
 import BusIcon from "@material-ui/icons/DirectionsBus";
 import RouteIcon from "@material-ui/icons/Directions";
 import UserIcon from "@material-ui/icons/SupervisorAccount";
+import RejectedUserIcon from "@material-ui/icons/Block";
 import SignUpIcon from "@material-ui/icons/PersonAdd";
 import BalanceIcon from "@material-ui/icons/AccountBalanceWallet";
 import DepositIcon from "@material-ui/icons/Payment";
@@ -218,6 +219,12 @@ export default function NavigationBar() {
                     <UserIcon />
                   </ListItemIcon>
                   <ListItemText primary="Usuarios" />
+                </ListItem>
+                <ListItem button component={Link} to={ADMIN_INACTIVE_USERS()} color="inherit">
+                  <ListItemIcon>
+                    <RejectedUserIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Usuarios Deshabilitados" />
                 </ListItem>
                 <ListItem button onClick={onAdminSignOutClick} disabled={isAdminSigningOut} color="inherit">
                   <ListItemIcon>
