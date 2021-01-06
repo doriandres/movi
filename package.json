@@ -7,7 +7,7 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@material/card": "^6.0.0",
     "@material/data-table": "^6.0.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "clsx": "^1.1.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
